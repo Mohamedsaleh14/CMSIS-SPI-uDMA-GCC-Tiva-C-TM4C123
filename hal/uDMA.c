@@ -58,6 +58,11 @@ static void Controlbase(void)
 						|(0x01<<3) //Next Useburst
 						|(0x01);
 
+	control_word_ch13 = (0x03<<30)	//Destination is not increment
+						|(0x06<<14) //Arbitration size is 64 bytes transfers
+						|(0x07<<4) //transfer size in bits-1
+						|(0x01<<3) //Next Useburst
+						|(0x01);
 	if((((uint32_t)udma_control_structure & ~(0x3FF)) == (uint32_t)udma_control_structure)
 			&& ((uint32_t)udma_control_structure >= 0x20000000))
 	{
@@ -67,11 +72,13 @@ static void Controlbase(void)
 		UDMA->PRIOSET = (1<<12);		//Setting priority for Receiving from SSI2
 		UDMA->CHMAP1  = (1<<17 /*Map channel 12 to SSI2 Rx*/ )|(1<<21/*Map channel 13 to SSI2 Tx*/);
 		UDMA->REQMASKSET = ~((1<<12)|(1<<13)); 	//Masking all channels to be not requested except for channel 12, 13
-		CfgDMAChSrcAdd(UDMA_CHANNEL_12, SSI2->DR);
-		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)udma_buffer_rx);
+		CfgDMAChSrcAdd(UDMA_CHANNEL_12, (uint32_t)SSI2->DR);
+		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+63));
 		CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
 
-
+		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+63));
+		CfgDMAChDesAdd(control_word_ch13, (uint32_t)SSI2->DR);
+		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 	}
 	else
 	{

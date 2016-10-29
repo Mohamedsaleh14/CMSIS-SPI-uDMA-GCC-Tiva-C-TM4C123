@@ -24,20 +24,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * File:			uDMAC.c
+ * File:			SPID.c
  * Author:		Mohamed Saleh (mohamedsaleh.elec@gmail.com).
  * Version:		1.0.0.
- * Description:	uDMA driver.
+ * Description:	SPI driver.
  */
 
-#include "cmsis/LM4F120H5QR.h"
-#include "hal/uDMA.h"
 
-int main(void) {
-	
-	while(1)
-	{
-		UDMA_Init();
-	}
-	return 0;
-}
+#include <stdint.h>
+#include "SPID.h"
