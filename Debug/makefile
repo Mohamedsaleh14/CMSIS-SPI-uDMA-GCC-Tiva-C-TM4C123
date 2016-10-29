@@ -168,6 +168,7 @@ clean:
 	-@echo ' '
 
 post-build:
+	-arm-none-eabi-size CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out
 	-@echo ' '
 
 secondary-outputs: $(BIN_OUTPUTS)
