@@ -34,8 +34,8 @@
 #include "uDMA.h"
 #include "../cmsis/LM4F120H5QR.h"
 
-#define UDMA_CHANNEL_12		(12)
-#define UDMA_CHANNEL_13		(13)
+#define UDMA_CHANNEL_12		((uint8_t)12)
+#define UDMA_CHANNEL_13		((uint8_t)13)
 
 static void Controlbase(void);
 static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address);
@@ -67,17 +67,17 @@ static void Controlbase(void)
 			&& ((uint32_t)udma_control_structure >= 0x20000000))
 	{
 		SYSCTL->RCGCDMA = (0x01); 	//Enable clock for DMA
-		UDMA->CFG = (0x01);			//Enable uDMA controller
+		UDMA->CFG = (uint32_t)(0x01);			//Enable uDMA controller
 		UDMA->CTLBASE = (uint32_t)udma_control_structure;
 		UDMA->PRIOSET = (1<<12);		//Setting priority for Receiving from SSI2
 		UDMA->CHMAP1  = (1<<17 /*Map channel 12 to SSI2 Rx*/ )|(1<<21/*Map channel 13 to SSI2 Tx*/);
-		UDMA->REQMASKSET = ~((1<<12)|(1<<13)); 	//Masking all channels to be not requested except for channel 12, 13
-		CfgDMAChSrcAdd(UDMA_CHANNEL_12, (uint32_t)SSI2->DR);
+		UDMA->REQMASKSET = ~(uint32_t)((1<<12)|(1<<13)); 	//Masking all channels to be not requested except for channel 12, 13
+		CfgDMAChSrcAdd(UDMA_CHANNEL_12, SSI2_BASE);
 		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+63));
 		CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
 
 		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+63));
-		CfgDMAChDesAdd(control_word_ch13, (uint32_t)SSI2->DR);
+		CfgDMAChDesAdd(control_word_ch13, SSI2_BASE);
 		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 	}
 	else
