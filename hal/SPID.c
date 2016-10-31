@@ -37,6 +37,8 @@
 
 #if (IS_SPI == 1)
 
+#define SCR		1		//Serial clock rate BitRate = Sysclk /(CPSDVSR *(1+SCR))
+
 static void SSI0Init(void);
 static void SSI1Init(void);
 static void SSI2Init(void);
@@ -57,6 +59,14 @@ static void SSI0Init(void)
 				|(SSI0_SLAVE_OUTPUT_MODE<<3)
 				|(SSI0_MASTER_SLAVE<<2)
 				|(SSI0_TEST_MODE<<0));
+
+		/*Configure SPI clk 20Mhz*/
+		SSI0->CPSR = 0x02;	//Divide system clock by 2
+		SSI0->CR0 = ((SCR<<8)
+				|(SSI0_SPH<<7)
+				|(SSI0_SPO<<6)
+				|(SSI0_FRF<<4)
+				|(SSI0_DSS));
 	}
 }
 #endif
@@ -75,6 +85,14 @@ static void SSI1Init(void)
 				|(SSI1_SLAVE_OUTPUT_MODE<<3)
 				|(SSI1_MASTER_SLAVE<<2)
 				|(SSI1_TEST_MODE<<0));
+
+		/*Configure SPI clk 20Mhz*/
+		SSI1->CPSR = 0x02;	//Divide system clock by 2
+		SSI1->CR0 = ((SCR<<8)
+				|(SSI1_SPH<<7)
+				|(SSI1_SPO<<6)
+				|(SSI1_FRF<<4)
+				|(SSI1_DSS));
 	}
 }
 #endif
@@ -93,6 +111,14 @@ static void SSI2Init(void)
 				|(SSI2_SLAVE_OUTPUT_MODE<<3)
 				|(SSI2_MASTER_SLAVE<<2)
 				|(SSI2_TEST_MODE<<0));
+
+		/*Configure SPI clk 20Mhz*/
+		SSI2->CPSR = 0x02;	//Divide system clock by 2
+		SSI2->CR0 = ((SCR<<8)
+				|(SSI2_SPH<<7)
+				|(SSI2_SPO<<6)
+				|(SSI2_FRF<<4)
+				|(SSI2_DSS));
 	}
 }
 #endif
@@ -111,6 +137,14 @@ static void SSI3Init(void)
 				|(SSI3_SLAVE_OUTPUT_MODE<<3)
 				|(SSI3_MASTER_SLAVE<<2)
 				|(SSI3_TEST_MODE<<0));
+
+		/*Configure SPI clk 20Mhz*/
+		SSI3->CPSR = 0x02;	//Divide system clock by 2
+		SSI3->CR0 = ((SCR<<8)
+				|(SSI3_SPH<<7)
+				|(SSI3_SPO<<6)
+				|(SSI3_FRF<<4)
+				|(SSI3_DSS));
 	}
 }
 #endif

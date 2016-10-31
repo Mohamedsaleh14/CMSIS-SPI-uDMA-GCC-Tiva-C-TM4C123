@@ -44,6 +44,10 @@
 
 #ifdef SPI_0
 #define SSI0_MASTER_SLAVE		1		// 1:Master  0:Slave
+#define SSI0_SPH					0		//Serial Clock Phase
+#define SSI0_SPO					0		//Serial Clock Polarity
+#define SSI0_FRF					0		//Frame Format Select
+#define SSI0_DSS					0		//Data Size Select
 #define SSI0_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #if (SSI0_MASTER_SLAVE == 0)
 #define SSI0_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
@@ -54,6 +58,10 @@
 
 #ifdef SPI_1
 #define SSI1_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI1_SPH					0		//Serial Clock Phase
+#define SSI1_SPO					0		//Serial Clock Polarity
+#define SSI1_FRF					0		//Frame Format Select
+#define SSI1_DSS					0		//Data Size Select
 #define SSI1_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #if (SSI1_MASTER_SLAVE == 0)
 #define SSI1_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
@@ -64,6 +72,10 @@
 
 #ifdef SPI_2
 #define SSI2_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI2_SPH					0		//Serial Clock Phase
+#define SSI2_SPO					0		//Serial Clock Polarity
+#define SSI2_FRF					0		//Frame Format Select
+#define SSI2_DSS					0		//Data Size Select
 #define SSI2_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #if (SSI2_MASTER_SLAVE == 0)
 #define SSI2_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
@@ -74,6 +86,10 @@
 
 #ifdef SPI_3
 #define SSI3_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI3_SPH					0		//Serial Clock Phase
+#define SSI3_SPO					0		//Serial Clock Polarity
+#define SSI3_FRF					0		//Frame Format Select
+#define SSI3_DSS					0		//Data Size Select
 #define SSI3_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #if (SSI3_MASTER_SLAVE == 0)
 #define SSI3_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
