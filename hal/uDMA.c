@@ -42,9 +42,9 @@ static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word);
 
-static uint8_t udma_control_structure[512] __attribute__ ((aligned(1024)));
-static uint8_t udma_buffer_tx[64] = {0};
-static uint8_t udma_buffer_rx[64] = {0};
+static uint16_t udma_control_structure[256] __attribute__ ((aligned(1024)));
+static uint16_t udma_buffer_tx[32] = {0};
+static uint16_t udma_buffer_rx[32] = {0};
 
 
 static void Controlbase(void)

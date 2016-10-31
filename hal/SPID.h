@@ -33,7 +33,62 @@
 #ifndef HAL_SPID_H_
 #define HAL_SPID_H_
 
+/** SPI Configuration */
+#define IS_SPI					1		// 1:there is SPI in system 0:there is no SPI in system
 
+#define SPI_0	//Configure SSI0
+//#define SPI_1	//Configure SSI1
+//#define SPI_2	//Configure SSI2
+//#define SPI_3	//Configure SSI3
+
+
+#ifdef SPI_0
+#define SSI0_MASTER_SLAVE		1		// 1:Master  0:Slave
+#define SSI0_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#if (SSI0_MASTER_SLAVE == 0)
+#define SSI0_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
+#else
+#define SSI0_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
+#endif
+#endif
+
+#ifdef SPI_1
+#define SSI1_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI1_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#if (SSI1_MASTER_SLAVE == 0)
+#define SSI1_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
+#else
+#define SSI1_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
+#endif
+#endif
+
+#ifdef SPI_2
+#define SSI2_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI2_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#if (SSI2_MASTER_SLAVE == 0)
+#define SSI2_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
+#else
+#define SSI2_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
+#endif
+#endif
+
+#ifdef SPI_3
+#define SSI3_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI3_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#if (SSI3_MASTER_SLAVE == 0)
+#define SSI3_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
+#else
+#define SSI3_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
+#endif
+#endif
+
+
+typedef enum{
+	SSI_0,
+	SSI_1,
+	SSI_3,
+	SSI_4
+}SPID_SpiPort_T;
 
 
 
