@@ -24,21 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * File:			common.h
+ * File:			TIMD.h
  * Author:		Mohamed Saleh (mohamedsaleh.elec@gmail.com).
  * Version:		1.0.0.
- * Description:	Common header file definitions and declaration.
+ * Description:	Timer driver.
  */
-
-#ifndef DEBUG_COMMON_H_
-#define DEBUG_COMMON_H_
-
-#define TRUE		(0==0)
-#define FALSE	(0!=0)
-
-#define	SW_OK	1
-#define SW_NOK	0
+#ifndef HAL_TIMD_H_
+#define HAL_TIMD_H_
 
 
 
-#endif /* DEBUG_COMMON_H_ */
+
+
+#endif /* HAL_TIMD_H_ */

@@ -49,6 +49,8 @@
 #define SSI0_FRF					0		//Frame Format Select
 #define SSI0_DSS					0		//Data Size Select
 #define SSI0_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI0_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
+#define SSI0_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #if (SSI0_MASTER_SLAVE == 0)
 #define SSI0_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
 #else
@@ -63,6 +65,8 @@
 #define SSI1_FRF					0		//Frame Format Select
 #define SSI1_DSS					0		//Data Size Select
 #define SSI1_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI1_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
+#define SSI1_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #if (SSI1_MASTER_SLAVE == 0)
 #define SSI1_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
 #else
@@ -77,6 +81,8 @@
 #define SSI2_FRF					0		//Frame Format Select
 #define SSI2_DSS					0		//Data Size Select
 #define SSI2_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI2_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
+#define SSI2_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #if (SSI2_MASTER_SLAVE == 0)
 #define SSI2_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
 #else
@@ -91,6 +97,8 @@
 #define SSI3_FRF					0		//Frame Format Select
 #define SSI3_DSS					0		//Data Size Select
 #define SSI3_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI3_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
+#define SSI3_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #if (SSI3_MASTER_SLAVE == 0)
 #define SSI3_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
 #else
@@ -107,16 +115,52 @@ typedef enum{
 }SPID_SpiPort_T;
 
 typedef struct{
-	uint8_t	SSI0_IsEnabled :1;
-	uint8_t SSI1_IsEnabled :1;
-	uint8_t SSI2_IsEnabled :1;
-	uint8_t SSI3_IsEnabled :1;
+	uint8_t	ssi0_isenabled :1;
+	uint8_t ssi1_isenabled :1;
+	uint8_t ssi2_isenabled :1;
+	uint8_t ssi3_isenabled :1;
 	uint8_t	Reserved:4;
 }SPID_SSI_T;
+
+typedef struct
+{
+	uint8_t ssi_busy :1;
+	uint8_t receive_fifo_full :1;
+	uint8_t receive_fifo_not_empty :1;
+	uint8_t transmit_fifo_not_full :1;
+	uint8_t transmit_fifo_empty :1;
+	uint8_t Reserved :3;
+}SPID_Status_T;
 
 extern void SPID_Init(SPID_SpiPort_T ssix);
 extern void SPID_Enable (SPID_SpiPort_T ssix);
 extern void SPID_Disable(SPID_SpiPort_T ssix);
+
 extern SPID_SSI_T SPID_GetEnabledSPI(void);
+
+#ifdef SPI_0
+extern uint8_t SPID_SSI0SendData(uint16_t data);
+extern uint16_t SPID_SSI0ReceiveData(void);
+extern SPID_Status_T SPID_GetSSI0Status(void);
+#endif
+
+#ifdef SPI_1
+extern uint8_t SPID_SSI1SendData(uint16_t data);
+extern uint16_t SPID_SSI1ReceiveData(void);
+extern SPID_Status_T SPID_GetSSI1Status(void);
+#endif
+
+#ifdef SPI_2
+extern uint8_t SPID_SSI2SendData(uint16_t data);
+extern uint16_t SPID_SSI2ReceiveData(void);
+extern SPID_Status_T SPID_GetSSI2Status(void);
+#endif
+
+#ifdef SPI_3
+extern uint8_t SPID_SSI3SendData(uint16_t data);
+extern uint16_t SPID_SSI3ReceiveData(void);
+extern SPID_Status_T SPID_GetSSI3Status(void);
+#endif
+
 
 #endif /* HAL_SPID_H_ */

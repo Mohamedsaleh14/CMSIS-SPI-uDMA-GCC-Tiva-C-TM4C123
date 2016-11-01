@@ -39,8 +39,26 @@
 #if (IS_SPI == 1)
 
 #define SCR		1		//Serial clock rate BitRate = Sysclk /(CPSDVSR *(1+SCR))
+#define SSI_ENABLE				(0x02)
+#define RECEIVE_FIFO_NOT_EMPTY	(1<<2)
+#define TRANSMIT_FIFO_NOT_FULL	(1<<1)
 
 static SPID_SSI_T enabled_spi;
+#ifdef SPI_0
+SPID_Status_T ssi0_status;
+#endif
+
+#ifdef SPI_1
+SPID_Status_T ssi1_status;
+#endif
+
+#ifdef SPI_2
+SPID_Status_T ssi2_status;
+#endif
+
+#ifdef SPI_3
+SPID_Status_T ssi3_status;
+#endif
 
 #ifdef SPI_0
 static void SSI0Init(void);
@@ -82,6 +100,12 @@ static void SSI0Init(void)
 				|(SSI0_SPO<<6)
 				|(SSI0_FRF<<4)
 				|(SSI0_DSS));
+#if(SSI0_ENABLE_DMA_RX == 1)
+		SSI0->DMACTL = 0x01;
+#endif
+#if(SSI0_ENABLE_DMA_TX == 1)
+		SSI0->DMACTL |=(1<<1);
+#endif
 	}
 }
 #endif
@@ -181,10 +205,38 @@ void SPID_Init(SPID_SpiPort_T ssix)
 	static uint8_t first_entry = 0;
 	if(first_entry == TRUE)
 	{
-		enabled_spi.SSI0_IsEnabled = 0;
-		enabled_spi.SSI1_IsEnabled = 0;
-		enabled_spi.SSI2_IsEnabled = 0;
-		enabled_spi.SSI3_IsEnabled = 0;
+		enabled_spi.ssi0_isenabled = 0;
+		enabled_spi.ssi1_isenabled = 0;
+		enabled_spi.ssi2_isenabled = 0;
+		enabled_spi.ssi3_isenabled = 0;
+#ifdef SPI_0
+		ssi0_status.ssi_busy = 0;
+		ssi0_status.receive_fifo_full = 0;
+		ssi0_status.receive_fifo_not_empty = 0;
+		ssi0_status.transmit_fifo_not_full = 1;
+		ssi0_status.transmit_fifo_empty = 1;
+#endif
+#ifdef SPI_1
+		ssi1_status.ssi_busy = 0;
+		ssi1_status.receive_fifo_full = 0;
+		ssi1_status.receive_fifo_not_empty = 0;
+		ssi1_status.transmit_fifo_not_full = 1;
+		ssi1_status.transmit_fifo_empty = 1;
+#endif
+#ifdef SPI_2
+		ssi2_status.ssi_busy = 0;
+		ssi2_status.receive_fifo_full = 0;
+		ssi2_status.receive_fifo_not_empty = 0;
+		ssi2_status.transmit_fifo_not_full = 1;
+		ssi2_status.transmit_fifo_empty = 1;
+#endif
+#ifdef SPI_3
+		ssi3_status.ssi_busy = 0;
+		ssi3_status.receive_fifo_full = 0;
+		ssi3_status.receive_fifo_not_empty = 0;
+		ssi3_status.transmit_fifo_not_full = 1;
+		ssi3_status.transmit_fifo_empty = 1;
+#endif
 		first_entry = FALSE;
 	}
 	SYSCTL->RCGCSSI |= (1<<(uint8_t)ssix);		//Enable clock for SPI peripheral
@@ -223,28 +275,220 @@ void SPID_Init(SPID_SpiPort_T ssix)
 
 void SPID_Enable (SPID_SpiPort_T ssix)
 {
+	switch(ssix)
+	{
+#ifdef SPI_0
+	case SSI_0:
+		SSI0->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi0_isenabled = 1;
+		break;
+#endif
+#ifdef SPI_1
+	case SSI_1:
+		SSI1->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi1_isenabled = 1;
+		break;
+#endif
+#ifdef SPI_2
+	case SSI_2:
+		SSI2->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi2_isenabled = 1;
+		break;
+#endif
+#ifdef SPI_3
+	case SSI_3:
+		SSI3->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi3_isenabled = 1;
+		break;
+#endif
+	default:
+		//error
+		while(1)
+		{
+
+		}
+		break;
+	}
 
 }
 
 void SPID_Disable(SPID_SpiPort_T ssix)
 {
+	switch(ssix)
+	{
+#ifdef SPI_0
+	case SSI_0:
+		SSI0->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi0_isenabled = 0;
+		break;
+#endif
+#ifdef SPI_1
+	case SSI_1:
+		SSI1->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi1_isenabled = 0;
+		break;
+#endif
+#ifdef SPI_2
+	case SSI_2:
+		SSI2->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi2_isenabled = 0;
+		break;
+#endif
+#ifdef SPI_3
+	case SSI_3:
+		SSI3->CR1 |= (SSI_ENABLE);
+		enabled_spi.ssi3_isenabled = 0;
+		break;
+#endif
+	default:
+		//error
+		while(1)
+		{
 
+		}
+		break;
+	}
 }
+
 
 SPID_SSI_T SPID_GetEnabledSPI(void)
 {
 	return enabled_spi;
 }
 
+#ifdef SPI_0
+uint8_t SPID_SSI0SendData(uint16_t data)
+{
+	uint8_t is_sw_ok = SW_NOK;
+	if( (SSI0->SR&(1<<1)) == TRANSMIT_FIFO_NOT_FULL )
+	{
+		SSI0->DR = data;
+		is_sw_ok = SW_OK;
+	}
+	else
+	{
+		//Error
+		is_sw_ok = SW_NOK
+	}
+	return is_sw_ok;
+}
+uint16_t SPID_SSI0ReceiveData(void)
+{
+	uint16_t return_val = 0;
+	if( (SSI0->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	{
+		return_val = SSI0->DR;
+	}
+	return return_val;
+}
+SPID_Status_T SPID_GetSSI0Status(void)
+{
+	ssi0_status = SSI0->SR;
+	return ssi0_status;
+}
+#endif
 
+
+#ifdef SPI_1
+uint8_t SPID_SSI1SendData(uint16_t data)
+{
+	uint8_t is_sw_ok = SW_NOK;
+	if( (SSI1->SR&(1<<1)) == TRANSMIT_FIFO_NOT_FULL )
+	{
+		SSI1->DR = data;
+		is_sw_ok = SW_OK;
+	}
+	else
+	{
+		//Error
+		is_sw_ok = SW_NOK
+	}
+	return is_sw_ok;
+}
+uint16_t SPID_SSI1ReceiveData(void)
+{
+	uint16_t return_val = 0;
+	if( (SSI1->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	{
+		return_val = SSI1->DR;
+	}
+	return return_val;
+}
+SPID_Status_T SPID_GetSSI1Status(void)
+{
+	ssi1_status = SSI1->SR;
+	return ssi1_status;
+}
 #endif
 
 
 
+#ifdef SPI_2
+uint8_t SPID_SSI2SendData(uint16_t data)
+{
+	uint8_t is_sw_ok = SW_NOK;
+	if( (SSI2->SR&(1<<1)) == TRANSMIT_FIFO_NOT_FULL )
+	{
+		SSI2->DR = data;
+		is_sw_ok = SW_OK;
+	}
+	else
+	{
+		//Error
+		is_sw_ok = SW_NOK
+	}
+	return is_sw_ok;
+}
+uint16_t SPID_SSI2ReceiveData(void)
+{
+	uint16_t return_val = 0;
+	if( (SSI2->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	{
+		return_val = SSI2->DR;
+	}
+	return return_val;
+}
+SPID_Status_T SPID_GetSSI2Status(void)
+{
+	ssi2_status = SSI2->SR;
+	return ssi2_status;
+}
+#endif
 
 
+#ifdef SPI_3
+uint8_t SPID_SSI3SendData(uint16_t data)
+{
+	uint8_t is_sw_ok = SW_NOK;
+	if( (SSI3->SR&(1<<1)) == TRANSMIT_FIFO_NOT_FULL )
+	{
+		SSI3->DR = data;
+		is_sw_ok = SW_OK;
+	}
+	else
+	{
+		//Error
+		is_sw_ok = SW_NOK
+	}
+	return is_sw_ok;
+}
+uint16_t SPID_SSI3ReceiveData(void)
+{
+	uint16_t return_val = 0;
+	if( (SSI3->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	{
+		return_val = SSI3->DR;
+	}
+	return return_val;
+}
+SPID_Status_T SPID_GetSSI3Status(void)
+{
+	ssi3_status = SSI3->SR;
+	return ssi3_status;
+}
+#endif
 
 
-
+#endif
 
 
