@@ -32,6 +32,7 @@
 
 
 #include <stdint.h>
+#include "../common.h"
 #include "SPID.h"
 #include "../cmsis/LM4F120H5QR.h"
 
@@ -39,10 +40,20 @@
 
 #define SCR		1		//Serial clock rate BitRate = Sysclk /(CPSDVSR *(1+SCR))
 
+static SPID_SSI_T enabled_spi;
+
+#ifdef SPI_0
 static void SSI0Init(void);
+#endif
+#ifdef SPI_1
 static void SSI1Init(void);
+#endif
+#ifdef SPI_2
 static void SSI2Init(void);
+#endif
+#ifdef SPI_3
 static void SSI3Init(void);
+#endif
 
 
 #ifdef SPI_0
@@ -55,8 +66,12 @@ static void SSI0Init(void)
 
 	if(((SSI0->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
 	{
-		SSI0->CR1 = ((EOT<<4)
+		SSI0->CR1 = (0
+#if (SSI0_MASTER_SLAVE == 0)
 				|(SSI0_SLAVE_OUTPUT_MODE<<3)
+#else
+				|(SSI0_EOT<<4)
+#endif
 				|(SSI0_MASTER_SLAVE<<2)
 				|(SSI0_TEST_MODE<<0));
 
@@ -81,8 +96,12 @@ static void SSI1Init(void)
 
 	if(((SSI1->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
 	{
-		SSI1->CR1 = ((EOT<<4)
+		SSI1->CR1 = (8
+#if (SSI1_MASTER_SLAVE == 0)
 				|(SSI1_SLAVE_OUTPUT_MODE<<3)
+#else
+				|(SSI1_EOT<<4)
+#endif
 				|(SSI1_MASTER_SLAVE<<2)
 				|(SSI1_TEST_MODE<<0));
 
@@ -107,8 +126,12 @@ static void SSI2Init(void)
 
 	if(((SSI2->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
 	{
-		SSI2->CR1 = ((EOT<<4)
+		SSI2->CR1 = (0
+#if (SSI2_MASTER_SLAVE == 0)
 				|(SSI2_SLAVE_OUTPUT_MODE<<3)
+#else
+				|(SSI2_EOT<<4)
+#endif
 				|(SSI2_MASTER_SLAVE<<2)
 				|(SSI2_TEST_MODE<<0));
 
@@ -133,8 +156,12 @@ static void SSI3Init(void)
 
 	if(((SSI3->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
 	{
-		SSI3->CR1 = ((EOT<<4)
+		SSI3->CR1 = (0
+#if (SSI3_MASTER_SLAVE == 0)
 				|(SSI3_SLAVE_OUTPUT_MODE<<3)
+#else
+				|(SSI3_EOT<<4)
+#endif
 				|(SSI3_MASTER_SLAVE<<2)
 				|(SSI3_TEST_MODE<<0));
 
@@ -149,8 +176,17 @@ static void SSI3Init(void)
 }
 #endif
 
-void SPID_Init(SPID_SpiPort_T sssix)
+void SPID_Init(SPID_SpiPort_T ssix)
 {
+	static uint8_t first_entry = 0;
+	if(first_entry == TRUE)
+	{
+		enabled_spi.SSI0_IsEnabled = 0;
+		enabled_spi.SSI1_IsEnabled = 0;
+		enabled_spi.SSI2_IsEnabled = 0;
+		enabled_spi.SSI3_IsEnabled = 0;
+		first_entry = FALSE;
+	}
 	SYSCTL->RCGCSSI |= (1<<(uint8_t)ssix);		//Enable clock for SPI peripheral
 
 	switch(ssix){
@@ -185,6 +221,20 @@ void SPID_Init(SPID_SpiPort_T sssix)
 
 }
 
+void SPID_Enable (SPID_SpiPort_T ssix)
+{
+
+}
+
+void SPID_Disable(SPID_SpiPort_T ssix)
+{
+
+}
+
+SPID_SSI_T SPID_GetEnabledSPI(void)
+{
+	return enabled_spi;
+}
 
 
 #endif

@@ -106,6 +106,17 @@ typedef enum{
 	SSI_4
 }SPID_SpiPort_T;
 
+typedef struct{
+	uint8_t	SSI0_IsEnabled :1;
+	uint8_t SSI1_IsEnabled :1;
+	uint8_t SSI2_IsEnabled :1;
+	uint8_t SSI3_IsEnabled :1;
+	uint8_t	Reserved:4;
+}SPID_SSI_T;
 
+extern void SPID_Init(SPID_SpiPort_T ssix);
+extern void SPID_Enable (SPID_SpiPort_T ssix);
+extern void SPID_Disable(SPID_SpiPort_T ssix);
+extern SPID_SSI_T SPID_GetEnabledSPI(void);
 
 #endif /* HAL_SPID_H_ */
