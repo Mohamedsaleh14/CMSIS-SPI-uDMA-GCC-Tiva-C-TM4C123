@@ -33,6 +33,48 @@
 #ifndef ERRH_ERRH_H_
 #define ERRH_ERRH_H_
 
+#define NUM_OF_ERRORS			5
+#define NUM_OF_ERR_GROUPS		2
+
+typedef enum{
+	EER_NOT_ACTIVE = 0,
+	ERR_NOT_TESTED,
+	ERR_PASS,
+	ERR_FAIL
+} ERRH_status_T;
+
+typedef enum{
+	SPI_RECEIVE_TIMEOUT = 0,
+	SPI_INIT_FAILED = 1,
+	SPI_TRANSMIT_FAIL_FIFO_FULL = 2,
+	UDMA_CONTROL_STRUCTURE_FAIL =3,
+	UDMA_STATUS_UNDEFINED = 4
+}ERRH_erros_id_T;
+
+typedef enum{
+	SPI_DRIVER = 0,
+	UDMA_DRIVER =1
+} ERRH_errors_group_T;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

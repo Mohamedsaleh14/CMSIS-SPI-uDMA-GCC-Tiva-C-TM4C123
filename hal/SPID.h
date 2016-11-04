@@ -36,9 +36,9 @@
 /** SPI Configuration */
 #define IS_SPI					1		// 1:there is SPI in system 0:there is no SPI in system
 
-#define SPI_0	//Configure SSI0
+//#define SPI_0	//Configure SSI0
 //#define SPI_1	//Configure SSI1
-//#define SPI_2	//Configure SSI2
+#define SPI_2	//Configure SSI2
 //#define SPI_3	//Configure SSI3
 
 
@@ -75,7 +75,7 @@
 #endif
 
 #ifdef SPI_2
-#define SSI2_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI2_MASTER_SLAVE		1		// 1:Master  0:Slave
 #define SSI2_SPH					0		//Serial Clock Phase
 #define SSI2_SPO					0		//Serial Clock Polarity
 #define SSI2_FRF					0		//Frame Format Select

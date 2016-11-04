@@ -37,32 +37,38 @@
 #define UDMA_CHANNEL_12		((uint8_t)12)
 #define UDMA_CHANNEL_13		((uint8_t)13)
 
-static void Controlbase(void);
+static void SSI2DMAConfiguration(void);
 static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word);
 
-static uint16_t udma_control_structure[256] __attribute__ ((aligned(1024)));
+static uint32_t udma_control_structure[128] __attribute__ ((aligned(1024)));
 static uint16_t udma_buffer_tx[32] = {0};
 static uint16_t udma_buffer_rx[32] = {0};
 
 
-static void Controlbase(void)
+static void SSI2DMAConfiguration(void)
 {
 	uint32_t control_word_ch12 = 0;
 	uint32_t control_word_ch13 = 0;
 
-	control_word_ch12 = (0x03<<26) //source address is not increment
-						|(0x06<<14) //Arbitration size is 64 bytes transfers
-						|(0x07<<4) //transfer size in bits-1
-						|(0x01<<3) //Next Useburst
-						|(0x01);
+	control_word_ch12 = (1<<30)	//destination address increment (increment by 16 bit locations)
+			|(1<<28)		//destination data size (16 bit data size)
+			|(3<<26)		//source address increment (No increment)
+			|(1<<24)		//source data size (16 bit data size)
+			|(3<<14)		//Arbitration size ( 8 transfers)
+			|(7<<4)		//Transfer size (minus 1)
+			|(1<<3)		//next useburst
+			|(1<<0)		//Basic mode
 
-	control_word_ch13 = (0x03<<30)	//Destination is not increment
-						|(0x06<<14) //Arbitration size is 64 bytes transfers
-						|(0x07<<4) //transfer size in bits-1
-						|(0x01<<3) //Next Useburst
-						|(0x01);
+	control_word_ch13 =	(3<<30)	//destination address increment (No increment)
+			|(1<<28)		//destination data size (16 bit data size)
+			|(1<<26)		//source address increment (No increment)
+			|(1<<24)		//source data size (16 bit data size)
+			|(3<<14)		//Arbitration size ( 8 transfers)
+			|(7<<4)		//Transfer size (minus 1)
+			|(1<<3)		//next useburst
+			|(1<<0)		//Basic mode
 	if((((uint32_t)udma_control_structure & ~(0x3FF)) == (uint32_t)udma_control_structure)
 			&& ((uint32_t)udma_control_structure >= 0x20000000))
 	{
@@ -73,10 +79,10 @@ static void Controlbase(void)
 		UDMA->CHMAP1  = (1<<17 /*Map channel 12 to SSI2 Rx*/ )|(1<<21/*Map channel 13 to SSI2 Tx*/);
 		UDMA->REQMASKSET = ~(uint32_t)((1<<12)|(1<<13)); 	//Masking all channels to be not requested except for channel 12, 13
 		CfgDMAChSrcAdd(UDMA_CHANNEL_12, SSI2_BASE);
-		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+63));
+		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+31));
 		CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
 
-		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+63));
+		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+31));
 		CfgDMAChDesAdd(control_word_ch13, SSI2_BASE);
 		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 	}
@@ -91,43 +97,51 @@ static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address)
 {
 	uint32_t* ptr;
 	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4)); //point to channel source address container
-	*ptr = (end_address>>24)&0xFF;
-	ptr++;
-	*ptr = (end_address>>16)&0xFF;
-	ptr++;
-	*ptr = (end_address>>8)&0xFF;
-	ptr++;
-	*ptr = (end_address)&0xFF;
+	*ptr = end_address
 }
 
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address)
 {
 	uint32_t* ptr;
 	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4) + (uint32_t)0x04); //point to channel destination address container
-	*ptr = (end_address>>24)&0xFF;
-	ptr++;
-	*ptr = (end_address>>16)&0xFF;
-	ptr++;
-	*ptr = (end_address>>8)&0xFF;
-	ptr++;
-	*ptr = (end_address)&0xFF;
+	*ptr = end_address;
 }
 
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word)
 {
 	uint32_t* ptr;
 	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4) + (uint32_t)0x08); //point to channel destination address container
-	*ptr = (control_word>>24)&0xFF;
-	ptr++;
-	*ptr = (control_word>>16)&0xFF;
-	ptr++;
-	*ptr = (control_word>>8)&0xFF;
-	ptr++;
-	*ptr = (control_word)&0xFF;
+	*ptr = control_word;
 }
 
 void UDMA_Init(void)
 {
-	Controlbase();
+	SSI2DMAConfiguration();
 }
+
+UDMA_status_T UDMA_GetStatus(void)
+{
+	uint32_t temp = 0;
+	UDMA_status_T return_val;
+	temp = UDMA->STAT;
+	return_val.master_enable_status = (uint8_t)(temp&0x01);
+	return_val.num_configured_channels = (uint8_t)((temp>>16)&0x1F);
+	return_val.state_machine_status = (UDMA_state_T)((temp>>4)&0xF);
+
+	if(return_val.state_machine_status == DMA_UNDEFINED)
+	{
+		//SET ERROR
+	}
+	else
+	{
+		//CLear ERROR
+	}
+	return return_val;
+}
+
+
+
+
+
+
 
