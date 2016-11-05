@@ -138,6 +138,12 @@ static void SSI1Init(void)
 				|(SSI1_FRF<<4)
 				|(SSI1_DSS));
 	}
+#if(SSI1_ENABLE_DMA_RX == 1)
+		SSI1->DMACTL = 0x01;
+#endif
+#if(SSI1_ENABLE_DMA_TX == 1)
+		SSI1->DMACTL |=(1<<1);
+#endif
 }
 #endif
 
@@ -168,6 +174,12 @@ static void SSI2Init(void)
 				|(SSI2_FRF<<4)
 				|(SSI2_DSS));
 	}
+#if(SSI2_ENABLE_DMA_RX == 1)
+		SSI2->DMACTL = 0x01;
+#endif
+#if(SSI2_ENABLE_DMA_TX == 1)
+		SSI2->DMACTL |=(1<<1);
+#endif
 }
 #endif
 
@@ -198,6 +210,12 @@ static void SSI3Init(void)
 				|(SSI3_FRF<<4)
 				|(SSI3_DSS));
 	}
+#if(SSI3_ENABLE_DMA_RX == 1)
+		SSI3->DMACTL = 0x01;
+#endif
+#if(SSI3_ENABLE_DMA_TX == 1)
+		SSI3->DMACTL |=(1<<1);
+#endif
 }
 #endif
 

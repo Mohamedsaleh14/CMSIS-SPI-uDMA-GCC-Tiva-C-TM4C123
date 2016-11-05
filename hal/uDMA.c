@@ -77,9 +77,11 @@ static void SSI2DMAConfiguration(void)
 		SYSCTL->RCGCDMA = (0x01); 	//Enable clock for DMA
 		UDMA->CFG = (uint32_t)(0x01);			//Enable uDMA controller
 		UDMA->CTLBASE = (uint32_t)udma_control_structure;
+		UDMA->ALTCLR = (uint32_t)((1<<12)|(1<<13)); //Using Primary control structure
 		UDMA->PRIOSET = (1<<12);		//Setting priority for Receiving from SSI2
 		UDMA->CHMAP1  = (1<<17 /*Map channel 12 to SSI2 Rx*/ )|(1<<21/*Map channel 13 to SSI2 Tx*/);
 		UDMA->REQMASKSET = ~(uint32_t)((1<<12)|(1<<13)); 	//Masking all channels to be not requested except for channel 12, 13
+
 		CfgDMAChSrcAdd(UDMA_CHANNEL_12, SSI2_BASE);
 		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+31));
 		CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
@@ -87,6 +89,8 @@ static void SSI2DMAConfiguration(void)
 		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+31));
 		CfgDMAChDesAdd(control_word_ch13, SSI2_BASE);
 		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
+
+		UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
 	}
 	else
 	{
