@@ -10,9 +10,11 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./main.o" \
 "./tm4c123gh6pm_startup_ccs_gcc.o" \
+"./ERRH/ERRH.o" \
 "./cmsis/cmsis_nvic.o" \
 "./cmsis/system_LM4F.o" \
 "./hal/SPID.o" \
+"./hal/TIMD.o" \
 "./hal/uDMA.o" \
 -Wl,-T"../tm4c123gh6pm.lds" \
 $(GEN_CMDS__FLAG) \
@@ -28,9 +30,11 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include ERRH/subdir_vars.mk
 -include cmsis/subdir_vars.mk
 -include hal/subdir_vars.mk
 -include subdir_rules.mk
+-include ERRH/subdir_rules.mk
 -include cmsis/subdir_rules.mk
 -include hal/subdir_rules.mk
 -include objects.mk
@@ -162,8 +166,8 @@ CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" "cmsis/cmsis_nvic.o" "cmsis/system_LM4F.o" "hal/SPID.o" "hal/uDMA.o" 
-	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" "cmsis/cmsis_nvic.d" "cmsis/system_LM4F.d" "hal/SPID.d" "hal/uDMA.d" 
+	-$(RM) "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" "ERRH/ERRH.o" "cmsis/cmsis_nvic.o" "cmsis/system_LM4F.o" "hal/SPID.o" "hal/TIMD.o" "hal/uDMA.o" 
+	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" "ERRH/ERRH.d" "cmsis/cmsis_nvic.d" "cmsis/system_LM4F.d" "hal/SPID.d" "hal/TIMD.d" "hal/uDMA.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

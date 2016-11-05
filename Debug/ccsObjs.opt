@@ -1,1 +1,1 @@
-"./main.o" "./tm4c123gh6pm_startup_ccs_gcc.o" "./cmsis/cmsis_nvic.o" "./cmsis/system_LM4F.o" "./hal/SPID.o" "./hal/uDMA.o" -Wl,-T"../tm4c123gh6pm.lds" -Wl,--start-group -lc -Wl,--end-group 
+"./main.o" "./tm4c123gh6pm_startup_ccs_gcc.o" "./ERRH/ERRH.o" "./cmsis/cmsis_nvic.o" "./cmsis/system_LM4F.o" "./hal/SPID.o" "./hal/TIMD.o" "./hal/uDMA.o" -Wl,-T"../tm4c123gh6pm.lds" -Wl,--start-group -lc -Wl,--end-group 

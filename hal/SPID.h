@@ -110,8 +110,8 @@
 typedef enum{
 	SSI_0,
 	SSI_1,
-	SSI_3,
-	SSI_4
+	SSI_2,
+	SSI_3
 }SPID_SpiPort_T;
 
 typedef struct{

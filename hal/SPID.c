@@ -35,6 +35,7 @@
 #include "../common.h"
 #include "SPID.h"
 #include "../cmsis/LM4F120H5QR.h"
+#include "../ERRH/ERRH.h"
 
 #if (IS_SPI == 1)
 
@@ -375,7 +376,7 @@ uint8_t SPID_SSI0SendData(uint16_t data)
 uint16_t SPID_SSI0ReceiveData(void)
 {
 	uint16_t return_val = 0;
-	if( (SSI0->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	if( (SSI0->SR&(1<<2)) == RECEIVE_FIFO_NOT_EMPTY)
 	{
 		return_val = SSI0->DR;
 	}
@@ -408,7 +409,7 @@ uint8_t SPID_SSI1SendData(uint16_t data)
 uint16_t SPID_SSI1ReceiveData(void)
 {
 	uint16_t return_val = 0;
-	if( (SSI1->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	if( (SSI1->SR&(1<<2)) == RECEIVE_FIFO_NOT_EMPTY)
 	{
 		return_val = SSI1->DR;
 	}
@@ -435,14 +436,14 @@ uint8_t SPID_SSI2SendData(uint16_t data)
 	else
 	{
 		//Error
-		is_sw_ok = SW_NOK
+		is_sw_ok = SW_NOK;
 	}
 	return is_sw_ok;
 }
 uint16_t SPID_SSI2ReceiveData(void)
 {
 	uint16_t return_val = 0;
-	if( (SSI2->SR&(1<<2)) == RECEIVE_NOT_EMPTY)
+	if( (SSI2->SR&(1<<2)) == RECEIVE_FIFO_NOT_EMPTY)
 	{
 		return_val = SSI2->DR;
 	}
@@ -450,8 +451,17 @@ uint16_t SPID_SSI2ReceiveData(void)
 }
 SPID_Status_T SPID_GetSSI2Status(void)
 {
+	uint32_t ssi2_status = 0;
+	SPID_Status_T return_val;
+
 	ssi2_status = SSI2->SR;
-	return ssi2_status;
+	return_val.ssi_busy = ((ssi2_status>>4)&0x01);
+	return_val.receive_fifo_full = ((ssi2_status>>3)&0x01);
+	return_val.receive_fifo_not_empty = ((ssi2_status>>2)&0x01);
+	return_val.transmit_fifo_not_full = ((ssi2_status>>1)&0x01);
+	return_val.transmit_fifo_empty = (ssi2_status%0x01);
+
+	return return_val;
 }
 #endif
 

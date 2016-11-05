@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Debug/ERRH/subdir_rules.mk=UTF-8
+encoding//Debug/ERRH/subdir_vars.mk=UTF-8
 encoding//Debug/cmsis/subdir_rules.mk=UTF-8
 encoding//Debug/cmsis/subdir_vars.mk=UTF-8
 encoding//Debug/hal/subdir_rules.mk=UTF-8

@@ -32,6 +32,8 @@
 
 #include "cmsis/LM4F120H5QR.h"
 #include "hal/uDMA.h"
+#include "hal/SPID.h"
+#include "ERRH/ERRH.h"
 
 int main(void) {
 	

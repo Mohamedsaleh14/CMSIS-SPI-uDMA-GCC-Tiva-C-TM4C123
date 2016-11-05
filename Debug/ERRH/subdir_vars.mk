@@ -4,33 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../hal/SPID.c \
-../hal/TIMD.c \
-../hal/uDMA.c 
+../ERRH/ERRH.c 
 
 C_DEPS += \
-./hal/SPID.d \
-./hal/TIMD.d \
-./hal/uDMA.d 
+./ERRH/ERRH.d 
 
 OBJS += \
-./hal/SPID.o \
-./hal/TIMD.o \
-./hal/uDMA.o 
+./ERRH/ERRH.o 
 
 OBJS__QUOTED += \
-"hal/SPID.o" \
-"hal/TIMD.o" \
-"hal/uDMA.o" 
+"ERRH/ERRH.o" 
 
 C_DEPS__QUOTED += \
-"hal/SPID.d" \
-"hal/TIMD.d" \
-"hal/uDMA.d" 
+"ERRH/ERRH.d" 
 
 C_SRCS__QUOTED += \
-"../hal/SPID.c" \
-"../hal/TIMD.c" \
-"../hal/uDMA.c" 
+"../ERRH/ERRH.c" 
 
 

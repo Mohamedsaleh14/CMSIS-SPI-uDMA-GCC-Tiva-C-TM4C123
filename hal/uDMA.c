@@ -33,6 +33,7 @@
 #include <stdint.h>
 #include "uDMA.h"
 #include "../cmsis/LM4F120H5QR.h"
+#include "../ERRH/ERRH.h"
 
 #define UDMA_CHANNEL_12		((uint8_t)12)
 #define UDMA_CHANNEL_13		((uint8_t)13)
@@ -59,7 +60,7 @@ static void SSI2DMAConfiguration(void)
 			|(3<<14)		//Arbitration size ( 8 transfers)
 			|(7<<4)		//Transfer size (minus 1)
 			|(1<<3)		//next useburst
-			|(1<<0)		//Basic mode
+			|(1<<0);		//Basic mode
 
 	control_word_ch13 =	(3<<30)	//destination address increment (No increment)
 			|(1<<28)		//destination data size (16 bit data size)
@@ -68,7 +69,8 @@ static void SSI2DMAConfiguration(void)
 			|(3<<14)		//Arbitration size ( 8 transfers)
 			|(7<<4)		//Transfer size (minus 1)
 			|(1<<3)		//next useburst
-			|(1<<0)		//Basic mode
+			|(1<<0);		//Basic mode
+
 	if((((uint32_t)udma_control_structure & ~(0x3FF)) == (uint32_t)udma_control_structure)
 			&& ((uint32_t)udma_control_structure >= 0x20000000))
 	{
@@ -97,7 +99,7 @@ static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address)
 {
 	uint32_t* ptr;
 	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4)); //point to channel source address container
-	*ptr = end_address
+	*ptr = end_address;
 }
 
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address)
@@ -128,13 +130,22 @@ UDMA_status_T UDMA_GetStatus(void)
 	return_val.num_configured_channels = (uint8_t)((temp>>16)&0x1F);
 	return_val.state_machine_status = (UDMA_state_T)((temp>>4)&0xF);
 
-	if(return_val.state_machine_status == DMA_UNDEFINED)
+	if((return_val.state_machine_status == DMA_IDLE)
+		||(return_val.state_machine_status == DMA_READING_CHANNEL_DATA)
+		||(return_val.state_machine_status == DMA_READING_SOURCE_END_POINTER)
+		||(return_val.state_machine_status == DMA_READING_DESTINATION_END_POINTER)
+		||(return_val.state_machine_status == DMA_READING_SOURCE_DATA)
+		||(return_val.state_machine_status == DMA_WRITING_DESTINATION_DATA)
+		||(return_val.state_machine_status == DMA_WAITING_REQUEST_CLEAR)
+		||(return_val.state_machine_status == DMA_WRITING_CHANNEL_DATA)
+		||(return_val.state_machine_status == DMA_STALLED)
+		||(return_val.state_machine_status == DMA_DONE))
 	{
-		//SET ERROR
+		//CLEAR ERROR
 	}
 	else
 	{
-		//CLear ERROR
+		//SET ERROR
 	}
 	return return_val;
 }

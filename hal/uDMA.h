@@ -43,18 +43,18 @@ typedef enum{
 	DMA_WRITING_CHANNEL_DATA = 7,
 	DMA_STALLED = 8,
 	DMA_DONE = 9,
-	DMA_UNDEFINED = 0xA,
-	DMA_UNDEFINED = 0xB,
-	DMA_UNDEFINED = 0xC,
-	DMA_UNDEFINED = 0xD,
-	DMA_UNDEFINED = 0xE,
-	DMA_UNDEFINED =0xF
+	DMA_UNDEFINED_0 = 0xA,
+	DMA_UNDEFINED_1 = 0xB,
+	DMA_UNDEFINED_2 = 0xC,
+	DMA_UNDEFINED_3 = 0xD,
+	DMA_UNDEFINED_4 = 0xE,
+	DMA_UNDEFINED_5 =0xF
 }UDMA_state_T;
 
 typedef struct{
-	uint8_t num_configured_channels = 0;
-	UDMA_state_T state_machine_status = DMA_UNDEFINED;
-	uint8_t master_enable_status = 0;
+	uint8_t num_configured_channels;
+	UDMA_state_T state_machine_status;
+	uint8_t master_enable_status;
 }UDMA_status_T;
 
 
