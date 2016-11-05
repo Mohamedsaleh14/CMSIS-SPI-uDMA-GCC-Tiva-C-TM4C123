@@ -32,6 +32,8 @@
 #ifndef HAL_UDMA_H_
 #define HAL_UDMA_H_
 
+#define UDMA_BUFFER_SIZE		32
+
 typedef enum{
 	DMA_IDLE = 0,
 	DMA_READING_CHANNEL_DATA = 1,
@@ -57,8 +59,13 @@ typedef struct{
 	uint8_t master_enable_status;
 }UDMA_status_T;
 
+uint16_t UDMA_ssi2_app_rx_data[UDMA_BUFFER_SIZE];
 
 extern void UDMA_Init(void);
+extern void UDMA_SetChSwRqt(uint32_t channel_num);
+extern void UDMA_SetSSI2TxData(uint16_t buffer[UDMA_BUFFER_SIZE]);
+extern void UDMA_UpdateSSI2RxData(void);
+extern uint32_t UDMA_GetWaitOnRqtStatus(void);
 extern UDMA_status_T UDMA_GetStatus(void);
 
 

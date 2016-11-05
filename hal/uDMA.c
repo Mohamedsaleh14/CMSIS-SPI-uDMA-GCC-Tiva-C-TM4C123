@@ -44,8 +44,8 @@ static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word);
 
 static uint32_t udma_control_structure[128] __attribute__ ((aligned(1024)));
-static uint16_t udma_buffer_tx[32] = {0};
-static uint16_t udma_buffer_rx[32] = {0};
+static uint16_t udma_buffer_tx[UDMA_BUFFER_SIZE] = {0};
+static uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] = {0};
 
 
 static void SSI2DMAConfiguration(void)
@@ -121,6 +121,11 @@ void UDMA_Init(void)
 	SSI2DMAConfiguration();
 }
 
+void UDMA_SetChSwRqt(uint32_t channel_num)
+{
+	UDMA->SWREQ = (1<<channel_num);
+}
+
 UDMA_status_T UDMA_GetStatus(void)
 {
 	uint32_t temp = 0;
@@ -150,9 +155,33 @@ UDMA_status_T UDMA_GetStatus(void)
 	return return_val;
 }
 
+uint32_t UDMA_GetWaitOnRqtStatus(void)
+{
+	return (UDMA->WAITSTAT);
+}
+
+void UDMA_SetSSI2TxData(uint16_t buffer[UDMA_BUFFER_SIZE])
+{
+	uint32_t iterator = 0;
+	//Critical section enable TODO
+	for(iterator=0;iterator<UDMA_BUFFER_SIZE;iterator++)
+	{
+		udma_buffer_tx[iterator] = buffer[UDMA_BUFFER_SIZE];
+	}
+	//Critical section disable TODO
+}
 
 
-
+void UDMA_UpdateSSI2RxData(void)
+{
+	uint32_t iterator = 0;
+	//Critical section enable TODO
+	for(iterator=0;iterator<UDMA_BUFFER_SIZE;iterator++)
+	{
+		UDMA_ssi2_app_rx_data[iterator] = udma_buffer_rx[UDMA_BUFFER_SIZE];
+	}
+	//Critical section disable TODO
+}
 
 
 

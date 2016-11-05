@@ -79,14 +79,14 @@
 #define SSI2_SPH					0		//Serial Clock Phase
 #define SSI2_SPO					0		//Serial Clock Polarity
 #define SSI2_FRF					0		//Frame Format Select
-#define SSI2_DSS					0		//Data Size Select
-#define SSI2_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI2_DSS					0xF		//Data Size Select
+#define SSI2_TEST_MODE			1		// 1:Test mode enabled   0:Test mode disabled
 #define SSI2_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI2_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #if (SSI2_MASTER_SLAVE == 0)
 #define SSI2_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
 #else
-#define SSI2_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
+#define SSI2_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0:Indicate FIFO is half full of less
 #endif
 #endif
 
@@ -135,7 +135,6 @@ typedef struct
 extern void SPID_Init(SPID_SpiPort_T ssix);
 extern void SPID_Enable (SPID_SpiPort_T ssix);
 extern void SPID_Disable(SPID_SpiPort_T ssix);
-
 extern SPID_SSI_T SPID_GetEnabledSPI(void);
 
 #ifdef SPI_0

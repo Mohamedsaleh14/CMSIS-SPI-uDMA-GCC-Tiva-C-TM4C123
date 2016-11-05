@@ -36,10 +36,24 @@
 #include "ERRH/ERRH.h"
 
 int main(void) {
+	uint16_t buffer_tx[UDMA_BUFFER_SIZE];
 	
+	UDMA_Init();
+	SPID_Init(SSI_2);
+	SPID_Enable (SSI_2);
+	buffer_tx[0] = 2;
+	buffer_tx[1] = 10;
+	buffer_tx[2] = 5;
+	buffer_tx[3] = 12;
+	buffer_tx[4] = 18;
+	buffer_tx[5] = 14;
+	buffer_tx[6] = 6;
+	buffer_tx[7] = 8;
+	UDMA_SetSSI2TxData(buffer_tx);
+	UDMA_SetChSwRqt(13);
 	while(1)
 	{
-		UDMA_Init();
+
 	}
 	return 0;
 }

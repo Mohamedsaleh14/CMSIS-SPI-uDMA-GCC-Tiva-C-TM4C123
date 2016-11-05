@@ -146,7 +146,7 @@ static void SSI2Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x02; //Enable clock  portB
 	GPIOB->AFSEL |= 0xF0;			//Pins, 4,5,6,7
-	GPIOF->PCTL |= ((2<<4)|(2<<5)|(2<<6)|(2<<7));
+	GPIOB->PCTL |= ((2<<4)|(2<<5)|(2<<6)|(2<<7));
 	GPIOB->DEN |= 0xF0;
 
 	if(((SSI2->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
@@ -203,7 +203,7 @@ static void SSI3Init(void)
 
 void SPID_Init(SPID_SpiPort_T ssix)
 {
-	static uint8_t first_entry = 0;
+	static uint8_t first_entry = TRUE;
 	if(first_entry == TRUE)
 	{
 		enabled_spi.ssi0_isenabled = 0;
