@@ -40,7 +40,7 @@ int main(void) {
 	
 	UDMA_Init();
 	SPID_Init(SSI_2);
-	SPID_Enable (SSI_2);
+	SPID_Enable(SSI_2);
 	buffer_tx[0] = 2;
 	buffer_tx[1] = 10;
 	buffer_tx[2] = 5;

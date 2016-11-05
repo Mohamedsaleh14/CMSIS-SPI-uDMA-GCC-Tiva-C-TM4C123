@@ -48,30 +48,24 @@
 #define SSI0_SPO					0		//Serial Clock Polarity
 #define SSI0_FRF					0		//Frame Format Select
 #define SSI0_DSS					0		//Data Size Select
+#define SSI0_ENABLE				1		// 1:Enable peripheral 0:Disable Peripheral
 #define SSI0_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #define SSI0_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI0_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
-#if (SSI0_MASTER_SLAVE == 0)
-#define SSI0_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
-#else
 #define SSI0_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
-#endif
 #endif
 
 #ifdef SPI_1
-#define SSI1_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI1_MASTER_SLAVE		1		// 1:Master  0:Slave
 #define SSI1_SPH					0		//Serial Clock Phase
 #define SSI1_SPO					0		//Serial Clock Polarity
 #define SSI1_FRF					0		//Frame Format Select
-#define SSI1_DSS					0		//Data Size Select
-#define SSI1_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
+#define SSI1_DSS					0x0F		//Data Size Select
+#define SSI1_ENABLE				1		// 1:Enable peripheral 0:Disable Peripheral
+#define SSI1_TEST_MODE			1		// 1:Test mode enabled   0:Test mode disabled
 #define SSI1_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI1_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
-#if (SSI1_MASTER_SLAVE == 0)
-#define SSI1_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
-#else
 #define SSI1_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0: Indicate FIFO is half full of less
-#endif
 #endif
 
 #ifdef SPI_2
@@ -80,14 +74,11 @@
 #define SSI2_SPO					0		//Serial Clock Polarity
 #define SSI2_FRF					0		//Frame Format Select
 #define SSI2_DSS					0xF		//Data Size Select
+#define SSI2_ENABLE				1		// 1:Enable peripheral 0:Disable Peripheral
 #define SSI2_TEST_MODE			1		// 1:Test mode enabled   0:Test mode disabled
 #define SSI2_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI2_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
-#if (SSI2_MASTER_SLAVE == 0)
-#define SSI2_SLAVE_OUTPUT_MODE	0		// 1:Tx output disabled	0:Tx output enabled
-#else
 #define SSI2_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0:Indicate FIFO is half full of less
-#endif
 #endif
 
 #ifdef SPI_3
@@ -96,6 +87,7 @@
 #define SSI3_SPO					0		//Serial Clock Polarity
 #define SSI3_FRF					0		//Frame Format Select
 #define SSI3_DSS					0		//Data Size Select
+#define SSI3_ENABLE				1		// 1:Enable peripheral 0:Disable Peripheral
 #define SSI3_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #define SSI3_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI3_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
