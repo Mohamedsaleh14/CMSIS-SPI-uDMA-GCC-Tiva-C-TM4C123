@@ -430,7 +430,7 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .comment       0x0000000000000000       0x71 ./hal/TIMD.o
  .comment       0x0000000000000000       0x71 ./hal/uDMA.o
 
-.debug_info     0x0000000000000000     0x392a
+.debug_info     0x0000000000000000     0x39e7
  .debug_info    0x0000000000000000      0x120 ./main.o
  .debug_info    0x0000000000000120      0x175 ./tm4c123gh6pm_startup_ccs_gcc.o
  .debug_info    0x0000000000000295       0x64 ./ERRH/ERRH.o
@@ -438,9 +438,9 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .debug_info    0x00000000000007e8      0xd77 ./cmsis/system_LM4F.o
  .debug_info    0x000000000000155f     0x11b9 ./hal/SPID.o
  .debug_info    0x0000000000002718       0x94 ./hal/TIMD.o
- .debug_info    0x00000000000027ac     0x117e ./hal/uDMA.o
+ .debug_info    0x00000000000027ac     0x123b ./hal/uDMA.o
 
-.debug_abbrev   0x0000000000000000      0x7f1
+.debug_abbrev   0x0000000000000000      0x81c
  .debug_abbrev  0x0000000000000000       0xb0 ./main.o
  .debug_abbrev  0x00000000000000b0       0xca ./tm4c123gh6pm_startup_ccs_gcc.o
  .debug_abbrev  0x000000000000017a       0x26 ./ERRH/ERRH.o
@@ -448,7 +448,7 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .debug_abbrev  0x00000000000002c5      0x12a ./cmsis/system_LM4F.o
  .debug_abbrev  0x00000000000003ef      0x206 ./hal/SPID.o
  .debug_abbrev  0x00000000000005f5       0x4b ./hal/TIMD.o
- .debug_abbrev  0x0000000000000640      0x1b1 ./hal/uDMA.o
+ .debug_abbrev  0x0000000000000640      0x1dc ./hal/uDMA.o
 
 .debug_aranges  0x0000000000000000      0x1a0
  .debug_aranges
@@ -502,7 +502,7 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .debug_str     0x0000000000000e82        0xe ./hal/TIMD.o
                                         0x1ef (size before relaxing)
  .debug_str     0x0000000000000e90      0x3a8 ./hal/uDMA.o
-                                        0xbb0 (size before relaxing)
+                                        0xbc6 (size before relaxing)
 
 .debug_frame    0x0000000000000000      0x5d4
  .debug_frame   0x0000000000000000       0x30 ./main.o
