@@ -35,17 +35,17 @@
 #include "../cmsis/LM4F120H5QR.h"
 #include "../ERRH/ERRH.h"
 
-#define UDMA_CHANNEL_12		((uint8_t)12)
-#define UDMA_CHANNEL_13		((uint8_t)13)
+#define UDMA_CHANNEL_12		(12)
+#define UDMA_CHANNEL_13		(13)
 
 static void SSI2DMAConfiguration(void);
 static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address);
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word);
 
-static uint32_t udma_control_structure[128] __attribute__ ((aligned(1024)));
-static uint16_t udma_buffer_tx[UDMA_BUFFER_SIZE] = {0};
-static uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] = {0};
+uint32_t udma_control_structure[256] __attribute__ ((aligned(1024)));
+uint16_t udma_buffer_tx[UDMA_BUFFER_SIZE] = {0};
+uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] = {0};
 
 
 static void SSI2DMAConfiguration(void)
@@ -86,8 +86,8 @@ static void SSI2DMAConfiguration(void)
 		CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+31));
 		CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
 
-		CfgDMAChSrcAdd(control_word_ch13, (uint32_t)(udma_buffer_tx+31));
-		CfgDMAChDesAdd(control_word_ch13, (uint32_t)&(SSI2->DR));
+		CfgDMAChSrcAdd(UDMA_CHANNEL_13, (uint32_t)(udma_buffer_tx+31));
+		CfgDMAChDesAdd(UDMA_CHANNEL_13, (uint32_t)&(SSI2->DR));
 		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 
 		UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
@@ -102,21 +102,30 @@ static void SSI2DMAConfiguration(void)
 static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address)
 {
 	uint32_t* ptr;
-	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4)); //point to channel source address container
+	uint32_t temp = 0;
+	temp = (uint32_t)udma_control_structure;
+	temp +=  (uint32_t)(channel<<4);
+	ptr = (uint32_t*)temp; //point to channel source address container
 	*ptr = end_address;
 }
 
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address)
 {
 	uint32_t* ptr;
-	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4) + (uint32_t)0x04); //point to channel destination address container
+	uint32_t temp = 0;
+	temp = (uint32_t)udma_control_structure;
+	temp +=  (((uint32_t)(channel<<4)) + ((uint32_t)0x04));
+	ptr = (uint32_t*)temp; //point to channel destination address container
 	*ptr = end_address;
 }
 
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word)
 {
 	uint32_t* ptr;
-	ptr = (uint32_t*)(udma_control_structure + (uint32_t)(channel<<4) + (uint32_t)0x08); //point to channel destination address container
+	uint32_t temp = 0;
+	temp = (uint32_t)udma_control_structure;
+	temp +=  (((uint32_t)(channel<<4)) + ((uint32_t)0x08));
+	ptr = (uint32_t*)temp; //point to channel destination address container
 	*ptr = control_word;
 }
 
@@ -164,13 +173,14 @@ uint32_t UDMA_GetWaitOnRqtStatus(void)
 	return (UDMA->WAITSTAT);
 }
 
-void UDMA_SetSSI2TxData(uint16_t buffer[UDMA_BUFFER_SIZE])
+void UDMA_SetSSI2TxData(uint16_t* buffer)
 {
 	uint32_t iterator = 0;
 	//Critical section enable TODO
 	for(iterator=0;iterator<UDMA_BUFFER_SIZE;iterator++)
 	{
-		udma_buffer_tx[iterator] = buffer[UDMA_BUFFER_SIZE];
+		udma_buffer_tx[iterator] = *buffer;
+		buffer++;
 	}
 	//Critical section disable TODO
 }

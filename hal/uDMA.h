@@ -63,7 +63,7 @@ uint16_t UDMA_ssi2_app_rx_data[UDMA_BUFFER_SIZE];
 
 extern void UDMA_Init(void);
 extern void UDMA_SetChSwRqt(uint32_t channel_num);
-extern void UDMA_SetSSI2TxData(uint16_t buffer[UDMA_BUFFER_SIZE]);
+extern void UDMA_SetSSI2TxData(uint16_t* buffer);
 extern void UDMA_UpdateSSI2RxData(void);
 extern uint32_t UDMA_GetWaitOnRqtStatus(void);
 extern UDMA_status_T UDMA_GetStatus(void);
