@@ -1,11 +1,13 @@
 #CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123
 
-This repository include 
+This repository developed using CCS with GCC compiler version 4.9.3 which includes 
 1-CMSIS driver (cmsis)
 2-SPI driver (SPID)
 3-DMA driver (UDMA)
 4-Error handler (ERRH) #TO_BE_DONE
 4-Timer driver (TIMD) TO #TO_BE_DONE
+
+
 
 ##CMSIS
 Standard driver created by ARM to handle ARM cortex processor plus module cmsis_NVIC created by mbed-OS to handle interrupt vector table
