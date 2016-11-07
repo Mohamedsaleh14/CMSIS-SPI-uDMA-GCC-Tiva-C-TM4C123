@@ -43,7 +43,7 @@
 
 
 #ifdef SPI_0
-#define SSI0_MASTER_SLAVE		1		// 1:Master  0:Slave
+#define SSI0_MASTER_SLAVE		1		// 1:Slave  0:Master
 #define SSI0_SPH					0		//Serial Clock Phase
 #define SSI0_SPO					0		//Serial Clock Polarity
 #define SSI0_FRF					0		//Frame Format Select
@@ -56,7 +56,7 @@
 #endif
 
 #ifdef SPI_1
-#define SSI1_MASTER_SLAVE		1		// 1:Master  0:Slave
+#define SSI1_MASTER_SLAVE		1		// 1:Slave  0:Master
 #define SSI1_SPH					0		//Serial Clock Phase
 #define SSI1_SPO					0		//Serial Clock Polarity
 #define SSI1_FRF					0		//Frame Format Select
@@ -69,7 +69,7 @@
 #endif
 
 #ifdef SPI_2
-#define SSI2_MASTER_SLAVE		1		// 1:Master  0:Slave
+#define SSI2_MASTER_SLAVE		0		// 1:Slave  0:Master
 #define SSI2_SPH					0		//Serial Clock Phase
 #define SSI2_SPO					0		//Serial Clock Polarity
 #define SSI2_FRF					0		//Frame Format Select
@@ -82,7 +82,7 @@
 #endif
 
 #ifdef SPI_3
-#define SSI3_MASTER_SLAVE		0		// 1:Master  0:Slave
+#define SSI3_MASTER_SLAVE		0		// 1:Slave  0:Master
 #define SSI3_SPH					0		//Serial Clock Phase
 #define SSI3_SPO					0		//Serial Clock Polarity
 #define SSI3_FRF					0		//Frame Format Select

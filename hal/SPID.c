@@ -79,8 +79,10 @@ static void SSI3Init(void);
 static void SSI0Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x01; //Enable clock portA
-	GPIOA->AFSEL |= 0x3C;			//Pins, 2,3,4,5
-	GPIOA->PCTL |= ((2<<2)|(2<<3)|(2<<4)|(2<<5));
+	GPIOA->AFSEL |= ((1<<2)|(1<<4)|(1<<5));			//Pins, 2,3,4,5
+	GPIOA->PCTL |= ((2<<4)|(2<<8)|(2<<12)|(2<<16));
+	GPIOA->DIR |= (1<<3);
+	GPIOA->DATA |= (1<<3);
 	GPIOA->DEN  |= 0x3C;
 
 	if(((SSI0->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
@@ -110,8 +112,10 @@ static void SSI0Init(void)
 static void SSI1Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x20; //Enable clock  portF
-	GPIOF->AFSEL |= 0x0F;			//Pins, 0,1,2,3
-	GPIOF->PCTL |= ((2<<0)|(2<<1)|(2<<2)|(2<<3));
+	GPIOF->AFSEL |= ((1<<0)|(1<<1)|(1<<2));			//Pins, 0,1,2,3
+	GPIOF->PCTL |= ((2<<0)|(2<<4)|(2<<8)|(2<<12));
+	GPIOF->DIR |= (1<<3);
+	GPIOF->DATA |= (1<<3);
 	GPIOF->DEN |= 0x0F;
 
 	if(((SSI1->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
@@ -141,8 +145,10 @@ static void SSI1Init(void)
 static void SSI2Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x02; //Enable clock  portB
-	GPIOB->AFSEL |= 0xF0;			//Pins, 4,5,6,7
-	GPIOB->PCTL |= ((2<<4)|(2<<5)|(2<<6)|(2<<7));
+	GPIOB->AFSEL |= ((1<<4)|(1<<6)|(1<<7));			//Pins, 4,5,6,7
+	GPIOB->PCTL |= ((2<<16)|(2<<20)|(2<<24)|(2<<28));
+	GPIOB->DIR |= (1<<5);
+	GPIOB->DATA |= (1<<5);
 	GPIOB->DEN |= 0xF0;
 
 	SSI2->CR1 = 0;
@@ -173,8 +179,10 @@ static void SSI2Init(void)
 static void SSI3Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x08; //Enable clock portD
-	GPIOD->AFSEL |= 0x0F;			//Pins, 0,1,2,3
-	GPIOD->PCTL |= ((1<<0)|(1<<1)|(1<<2)|(1<<3));
+	GPIOD->AFSEL |= ((1<<0)|(1<<2)|(1<<3));			//Pins, 0,1,2,3
+	GPIOD->PCTL |= ((1<<0)|(1<<4)|(1<<8)|(1<<12));
+	GPIOD->DIR |= (1<<1);
+	GPIOD->DATA |= (1<<1);
 	GPIOD->DEN |= 0x0F;
 
 	if(((SSI3->CR1)&0x02) == 0)		//if peripheral is disabled proceed with configuration
