@@ -61,7 +61,7 @@ LOAD ./hal/uDMA.o
 .vtable
  *(.vtable)
 
-.text           0x000000000000026c      0xe64
+.text           0x000000000000026c      0xee8
  CREATE_OBJECT_SYMBOLS
  *(.text)
  .text          0x000000000000026c        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
@@ -89,156 +89,159 @@ LOAD ./hal/uDMA.o
  .text          0x000000000000033c        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
  .text          0x000000000000033c        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *(.text.*)
- .text.main     0x000000000000033c       0x48 ./main.o
+ .text.main     0x000000000000033c       0xa4 ./main.o
                 0x000000000000033c                main
  .text.ResetISR
-                0x0000000000000384       0x68 ./tm4c123gh6pm_startup_ccs_gcc.o
-                0x0000000000000384                ResetISR
- .text.NmiSR    0x00000000000003ec        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
+                0x00000000000003e0       0x6c ./tm4c123gh6pm_startup_ccs_gcc.o
+                0x00000000000003e0                ResetISR
+ .text.NmiSR    0x000000000000044c        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
  .text.FaultISR
-                0x00000000000003f4        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
+                0x0000000000000454        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
  .text.IntDefaultHandler
-                0x00000000000003fc        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
+                0x000000000000045c        0x8 ./tm4c123gh6pm_startup_ccs_gcc.o
  .text.NVIC_SetVector
-                0x0000000000000404       0x70 ./cmsis/cmsis_nvic.o
-                0x0000000000000404                NVIC_SetVector
+                0x0000000000000464       0x70 ./cmsis/cmsis_nvic.o
+                0x0000000000000464                NVIC_SetVector
  .text.NVIC_GetVector
-                0x0000000000000474       0x30 ./cmsis/cmsis_nvic.o
-                0x0000000000000474                NVIC_GetVector
+                0x00000000000004d4       0x30 ./cmsis/cmsis_nvic.o
+                0x00000000000004d4                NVIC_GetVector
  .text.getOscClk
-                0x00000000000004a4      0x198 ./cmsis/system_LM4F.o
+                0x0000000000000504      0x198 ./cmsis/system_LM4F.o
  .text.SystemCoreClockUpdate
-                0x000000000000063c      0x114 ./cmsis/system_LM4F.o
-                0x000000000000063c                SystemCoreClockUpdate
+                0x000000000000069c      0x114 ./cmsis/system_LM4F.o
+                0x000000000000069c                SystemCoreClockUpdate
  .text.SystemInit
-                0x0000000000000750       0xb8 ./cmsis/system_LM4F.o
-                0x0000000000000750                SystemInit
+                0x00000000000007b0       0xb8 ./cmsis/system_LM4F.o
+                0x00000000000007b0                SystemInit
  .text.SSI2Init
-                0x0000000000000808       0xb4 ./hal/SPID.o
+                0x0000000000000868       0xb4 ./hal/SPID.o
  .text.SPID_Init
-                0x00000000000008bc       0xb0 ./hal/SPID.o
-                0x00000000000008bc                SPID_Init
+                0x000000000000091c       0xb0 ./hal/SPID.o
+                0x000000000000091c                SPID_Init
  .text.SPID_Enable
-                0x000000000000096c       0x40 ./hal/SPID.o
-                0x000000000000096c                SPID_Enable
+                0x00000000000009cc       0x40 ./hal/SPID.o
+                0x00000000000009cc                SPID_Enable
  .text.SPID_Disable
-                0x00000000000009ac       0x40 ./hal/SPID.o
-                0x00000000000009ac                SPID_Disable
+                0x0000000000000a0c       0x40 ./hal/SPID.o
+                0x0000000000000a0c                SPID_Disable
  .text.SPID_GetEnabledSPI
-                0x00000000000009ec       0x18 ./hal/SPID.o
-                0x00000000000009ec                SPID_GetEnabledSPI
+                0x0000000000000a4c       0x18 ./hal/SPID.o
+                0x0000000000000a4c                SPID_GetEnabledSPI
  .text.SPID_SSI2SendData
-                0x0000000000000a04       0x3c ./hal/SPID.o
-                0x0000000000000a04                SPID_SSI2SendData
+                0x0000000000000a64       0x3c ./hal/SPID.o
+                0x0000000000000a64                SPID_SSI2SendData
  .text.SPID_SSI2ReceiveData
-                0x0000000000000a40       0x30 ./hal/SPID.o
-                0x0000000000000a40                SPID_SSI2ReceiveData
+                0x0000000000000aa0       0x30 ./hal/SPID.o
+                0x0000000000000aa0                SPID_SSI2ReceiveData
  .text.SPID_GetSSI2Status
-                0x0000000000000a70       0x84 ./hal/SPID.o
-                0x0000000000000a70                SPID_GetSSI2Status
+                0x0000000000000ad0       0x84 ./hal/SPID.o
+                0x0000000000000ad0                SPID_GetSSI2Status
  .text.SSI2DMAConfiguration
-                0x0000000000000af4       0xcc ./hal/uDMA.o
+                0x0000000000000b54       0xbc ./hal/uDMA.o
  .text.CfgDMAChSrcAdd
-                0x0000000000000bc0       0x38 ./hal/uDMA.o
+                0x0000000000000c10       0x38 ./hal/uDMA.o
  .text.CfgDMAChDesAdd
-                0x0000000000000bf8       0x3c ./hal/uDMA.o
+                0x0000000000000c48       0x3c ./hal/uDMA.o
  .text.CfgDMAChContrWrd
-                0x0000000000000c34       0x3c ./hal/uDMA.o
+                0x0000000000000c84       0x3c ./hal/uDMA.o
  .text.UDMA_Init
-                0x0000000000000c70        0xc ./hal/uDMA.o
-                0x0000000000000c70                UDMA_Init
+                0x0000000000000cc0        0xc ./hal/uDMA.o
+                0x0000000000000cc0                UDMA_Init
  .text.UDMA_SetChSwRqt
-                0x0000000000000c7c       0x24 ./hal/uDMA.o
-                0x0000000000000c7c                UDMA_SetChSwRqt
+                0x0000000000000ccc       0x24 ./hal/uDMA.o
+                0x0000000000000ccc                UDMA_SetChSwRqt
  .text.UDMA_GetStatus
-                0x0000000000000ca0       0xa4 ./hal/uDMA.o
-                0x0000000000000ca0                UDMA_GetStatus
+                0x0000000000000cf0       0xa4 ./hal/uDMA.o
+                0x0000000000000cf0                UDMA_GetStatus
  .text.UDMA_GetWaitOnRqtStatus
-                0x0000000000000d44       0x18 ./hal/uDMA.o
-                0x0000000000000d44                UDMA_GetWaitOnRqtStatus
+                0x0000000000000d94       0x18 ./hal/uDMA.o
+                0x0000000000000d94                UDMA_GetWaitOnRqtStatus
  .text.UDMA_SetSSI2TxData
-                0x0000000000000d5c       0x40 ./hal/uDMA.o
-                0x0000000000000d5c                UDMA_SetSSI2TxData
+                0x0000000000000dac       0x40 ./hal/uDMA.o
+                0x0000000000000dac                UDMA_SetSSI2TxData
  .text.UDMA_UpdateSSI2RxData
-                0x0000000000000d9c       0x3c ./hal/uDMA.o
-                0x0000000000000d9c                UDMA_UpdateSSI2RxData
- .text.exit     0x0000000000000dd8       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-exit.o)
-                0x0000000000000dd8                exit
+                0x0000000000000dec       0x3c ./hal/uDMA.o
+                0x0000000000000dec                UDMA_UpdateSSI2RxData
+ .text.UDMA_EnableAgain
+                0x0000000000000e28       0x34 ./hal/uDMA.o
+                0x0000000000000e28                UDMA_EnableAgain
+ .text.exit     0x0000000000000e5c       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-exit.o)
+                0x0000000000000e5c                exit
  .text.__libc_init_array
-                0x0000000000000df8       0x50 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
-                0x0000000000000df8                __libc_init_array
- .text.memset   0x0000000000000e48       0x9c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
-                0x0000000000000e48                memset
+                0x0000000000000e7c       0x50 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
+                0x0000000000000e7c                __libc_init_array
+ .text.memset   0x0000000000000ecc       0x9c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
+                0x0000000000000ecc                memset
  .text.startup.register_fini
-                0x0000000000000ee4       0x14 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
+                0x0000000000000f68       0x14 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x0000000000000ef8       0xd4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
-                0x0000000000000ef8                __call_exitprocs
- .text.atexit   0x0000000000000fcc        0xc /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-atexit.o)
-                0x0000000000000fcc                atexit
+                0x0000000000000f7c       0xd4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
+                0x0000000000000f7c                __call_exitprocs
+ .text.atexit   0x0000000000001050        0xc /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-atexit.o)
+                0x0000000000001050                atexit
  .text.__libc_fini_array
-                0x0000000000000fd8       0x2c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-fini.o)
-                0x0000000000000fd8                __libc_fini_array
+                0x000000000000105c       0x2c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-fini.o)
+                0x000000000000105c                __libc_fini_array
  .text.__register_exitproc
-                0x0000000000001004       0xa4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
-                0x0000000000001004                __register_exitproc
- .text._exit    0x00000000000010a8        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libnosys.a(_exit.o)
-                0x00000000000010a8                _exit
-                0x00000000000010ac                . = ALIGN (0x4)
+                0x0000000000001088       0xa4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
+                0x0000000000001088                __register_exitproc
+ .text._exit    0x000000000000112c        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libnosys.a(_exit.o)
+                0x000000000000112c                _exit
+                0x0000000000001130                . = ALIGN (0x4)
  *(.ctors)
-                0x00000000000010ac                . = ALIGN (0x4)
+                0x0000000000001130                . = ALIGN (0x4)
  *(.dtors)
-                0x00000000000010ac                . = ALIGN (0x4)
-                0x00000000000010ac                __init_array_start = .
+                0x0000000000001130                . = ALIGN (0x4)
+                0x0000000000001130                __init_array_start = .
  *(.init_array*)
- .init_array    0x00000000000010ac        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .init_array    0x0000000000001130        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
  .init_array.00000
-                0x00000000000010b0        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
-                0x00000000000010b4                __init_array_end = .
+                0x0000000000001134        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
+                0x0000000000001138                __init_array_end = .
  *(.init)
- .init          0x00000000000010b4        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x00000000000010b4                _init
- .init          0x00000000000010b8        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+ .init          0x0000000000001138        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x0000000000001138                _init
+ .init          0x000000000000113c        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *(.fini*)
- .fini          0x00000000000010c0        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x00000000000010c0                _fini
- .fini_array    0x00000000000010c4        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
- .fini          0x00000000000010c8        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
-                0x00000000000010d0                PROVIDE (__etext, .)
-                0x00000000000010d0                PROVIDE (_etext, .)
-                0x00000000000010d0                PROVIDE (etext, .)
+ .fini          0x0000000000001144        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x0000000000001144                _fini
+ .fini_array    0x0000000000001148        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .fini          0x000000000000114c        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+                0x0000000000001154                PROVIDE (__etext, .)
+                0x0000000000001154                PROVIDE (_etext, .)
+                0x0000000000001154                PROVIDE (etext, .)
 
-.glue_7         0x00000000000010d0        0x0
+.glue_7         0x0000000000001154        0x0
  .glue_7        0x0000000000000000        0x0 linker stubs
 
-.glue_7t        0x00000000000010d0        0x0
+.glue_7t        0x0000000000001154        0x0
  .glue_7t       0x0000000000000000        0x0 linker stubs
 
-.vfp11_veneer   0x00000000000010d0        0x0
+.vfp11_veneer   0x0000000000001154        0x0
  .vfp11_veneer  0x0000000000000000        0x0 linker stubs
 
-.v4_bx          0x00000000000010d0        0x0
+.v4_bx          0x0000000000001154        0x0
  .v4_bx         0x0000000000000000        0x0 linker stubs
 
-.iplt           0x00000000000010d0        0x0
+.iplt           0x0000000000001154        0x0
  .iplt          0x0000000000000000        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.rodata         0x00000000000010d0        0x8
+.rodata         0x0000000000001154        0x8
  *(.rodata)
  *(.rodata*)
  .rodata.str1.4
-                0x00000000000010d0        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0000000000001154        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
                                           0x2 (size before relaxing)
  .rodata._global_impure_ptr
-                0x00000000000010d4        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
-                0x00000000000010d4                _global_impure_ptr
+                0x0000000000001158        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0000000000001158                _global_impure_ptr
 
-.eh_frame       0x00000000000010d8        0x4
- .eh_frame      0x00000000000010d8        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
- .eh_frame      0x00000000000010d8        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+.eh_frame       0x000000000000115c        0x4
+ .eh_frame      0x000000000000115c        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .eh_frame      0x000000000000115c        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
 
-.data           0x0000000020000000      0x43c load address 0x00000000000010dc
-                0x00000000000010dc                __data_load__ = LOADADDR (.data)
+.data           0x0000000020000000      0x444 load address 0x0000000000001160
+                0x0000000000001160                __data_load__ = LOADADDR (.data)
                 0x0000000020000000                __data_start__ = .
  *(.data)
  .data          0x0000000020000000        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
@@ -270,33 +273,40 @@ LOAD ./hal/uDMA.o
                 0x0000000020000004                SystemCoreClock
  .data.first_entry.5709
                 0x0000000020000008        0x1 ./hal/SPID.o
- *fill*         0x0000000020000009        0x7 
+ *fill*         0x0000000020000009        0x3 
+ .data.control_word_ch12
+                0x000000002000000c        0x4 ./hal/uDMA.o
+                0x000000002000000c                control_word_ch12
+ .data.control_word_ch13
+                0x0000000020000010        0x4 ./hal/uDMA.o
+                0x0000000020000010                control_word_ch13
+ *fill*         0x0000000020000014        0x4 
  .data.impure_data
-                0x0000000020000010      0x428 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0000000020000018      0x428 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
  .data._impure_ptr
-                0x0000000020000438        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
-                0x0000000020000438                _impure_ptr
-                0x000000002000043c                . = ALIGN (0x4)
-                0x000000002000043c                __data_end__ = .
+                0x0000000020000440        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-impure.o)
+                0x0000000020000440                _impure_ptr
+                0x0000000020000444                . = ALIGN (0x4)
+                0x0000000020000444                __data_end__ = .
 
-.jcr            0x000000002000043c        0x4 load address 0x0000000000001518
- .jcr           0x000000002000043c        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
- .jcr           0x000000002000043c        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+.jcr            0x0000000020000444        0x4 load address 0x00000000000015a4
+ .jcr           0x0000000020000444        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .jcr           0x0000000020000444        0x4 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
 
-.igot.plt       0x0000000020000440        0x0 load address 0x000000000000151c
+.igot.plt       0x0000000020000448        0x0 load address 0x00000000000015a8
  .igot.plt      0x0000000000000000        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.ARM.exidx      0x000000000000151c        0x8
-                0x000000000000151c                __exidx_start = .
+.ARM.exidx      0x00000000000015a8        0x8
+                0x00000000000015a8                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x000000000000151c        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
-                0x0000000000001524                __exidx_end = .
+ .ARM.exidx     0x00000000000015a8        0x8 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
+                0x00000000000015b0                __exidx_end = .
 
-.ARM.extab      0x0000000000001524        0x0
+.ARM.extab      0x00000000000015b0        0x0
  *(.ARM.extab* .gnu.linkonce.armextab.*)
- .ARM.extab     0x0000000000001524        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
+ .ARM.extab     0x00000000000015b0        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
 
-.rel.dyn        0x0000000000001524        0x0
+.rel.dyn        0x00000000000015b0        0x0
  .rel.iplt      0x0000000000000000        0x0 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
 .bss            0x0000000020000800      0xc00
@@ -432,27 +442,27 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .comment       0x0000000000000000       0x71 ./hal/TIMD.o
  .comment       0x0000000000000000       0x71 ./hal/uDMA.o
 
-.debug_info     0x0000000000000000     0x3a1f
- .debug_info    0x0000000000000000      0x12b ./main.o
- .debug_info    0x000000000000012b      0x175 ./tm4c123gh6pm_startup_ccs_gcc.o
- .debug_info    0x00000000000002a0       0x64 ./ERRH/ERRH.o
- .debug_info    0x0000000000000304      0x4ef ./cmsis/cmsis_nvic.o
- .debug_info    0x00000000000007f3      0xd77 ./cmsis/system_LM4F.o
- .debug_info    0x000000000000156a     0x11b9 ./hal/SPID.o
- .debug_info    0x0000000000002723       0x94 ./hal/TIMD.o
- .debug_info    0x00000000000027b7     0x1268 ./hal/uDMA.o
+.debug_info     0x0000000000000000     0x3c0f
+ .debug_info    0x0000000000000000      0x305 ./main.o
+ .debug_info    0x0000000000000305      0x175 ./tm4c123gh6pm_startup_ccs_gcc.o
+ .debug_info    0x000000000000047a       0x64 ./ERRH/ERRH.o
+ .debug_info    0x00000000000004de      0x4ef ./cmsis/cmsis_nvic.o
+ .debug_info    0x00000000000009cd      0xd77 ./cmsis/system_LM4F.o
+ .debug_info    0x0000000000001744     0x11b9 ./hal/SPID.o
+ .debug_info    0x00000000000028fd       0x94 ./hal/TIMD.o
+ .debug_info    0x0000000000002991     0x127e ./hal/uDMA.o
 
-.debug_abbrev   0x0000000000000000      0x82b
- .debug_abbrev  0x0000000000000000       0xbf ./main.o
- .debug_abbrev  0x00000000000000bf       0xca ./tm4c123gh6pm_startup_ccs_gcc.o
- .debug_abbrev  0x0000000000000189       0x26 ./ERRH/ERRH.o
- .debug_abbrev  0x00000000000001af      0x125 ./cmsis/cmsis_nvic.o
- .debug_abbrev  0x00000000000002d4      0x12a ./cmsis/system_LM4F.o
- .debug_abbrev  0x00000000000003fe      0x206 ./hal/SPID.o
- .debug_abbrev  0x0000000000000604       0x4b ./hal/TIMD.o
- .debug_abbrev  0x000000000000064f      0x1dc ./hal/uDMA.o
+.debug_abbrev   0x0000000000000000      0x895
+ .debug_abbrev  0x0000000000000000      0x116 ./main.o
+ .debug_abbrev  0x0000000000000116       0xca ./tm4c123gh6pm_startup_ccs_gcc.o
+ .debug_abbrev  0x00000000000001e0       0x26 ./ERRH/ERRH.o
+ .debug_abbrev  0x0000000000000206      0x125 ./cmsis/cmsis_nvic.o
+ .debug_abbrev  0x000000000000032b      0x12a ./cmsis/system_LM4F.o
+ .debug_abbrev  0x0000000000000455      0x206 ./hal/SPID.o
+ .debug_abbrev  0x000000000000065b       0x4b ./hal/TIMD.o
+ .debug_abbrev  0x00000000000006a6      0x1ef ./hal/uDMA.o
 
-.debug_aranges  0x0000000000000000      0x1a0
+.debug_aranges  0x0000000000000000      0x1a8
  .debug_aranges
                 0x0000000000000000       0x20 ./main.o
  .debug_aranges
@@ -468,56 +478,56 @@ OUTPUT(CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out elf32-littlearm)
  .debug_aranges
                 0x0000000000000120       0x18 ./hal/TIMD.o
  .debug_aranges
-                0x0000000000000138       0x68 ./hal/uDMA.o
+                0x0000000000000138       0x70 ./hal/uDMA.o
 
-.debug_ranges   0x0000000000000000      0x110
+.debug_ranges   0x0000000000000000      0x118
  .debug_ranges  0x0000000000000000       0x10 ./main.o
  .debug_ranges  0x0000000000000010       0x28 ./tm4c123gh6pm_startup_ccs_gcc.o
  .debug_ranges  0x0000000000000038       0x18 ./cmsis/cmsis_nvic.o
  .debug_ranges  0x0000000000000050       0x20 ./cmsis/system_LM4F.o
  .debug_ranges  0x0000000000000070       0x48 ./hal/SPID.o
- .debug_ranges  0x00000000000000b8       0x58 ./hal/uDMA.o
+ .debug_ranges  0x00000000000000b8       0x60 ./hal/uDMA.o
 
-.debug_line     0x0000000000000000      0xb85
- .debug_line    0x0000000000000000      0x156 ./main.o
- .debug_line    0x0000000000000156      0x16e ./tm4c123gh6pm_startup_ccs_gcc.o
- .debug_line    0x00000000000002c4       0x1d ./ERRH/ERRH.o
- .debug_line    0x00000000000002e1      0x162 ./cmsis/cmsis_nvic.o
- .debug_line    0x0000000000000443      0x1d5 ./cmsis/system_LM4F.o
- .debug_line    0x0000000000000618      0x218 ./hal/SPID.o
- .debug_line    0x0000000000000830      0x11a ./hal/TIMD.o
- .debug_line    0x000000000000094a      0x23b ./hal/uDMA.o
+.debug_line     0x0000000000000000      0xbb2
+ .debug_line    0x0000000000000000      0x176 ./main.o
+ .debug_line    0x0000000000000176      0x16f ./tm4c123gh6pm_startup_ccs_gcc.o
+ .debug_line    0x00000000000002e5       0x1d ./ERRH/ERRH.o
+ .debug_line    0x0000000000000302      0x162 ./cmsis/cmsis_nvic.o
+ .debug_line    0x0000000000000464      0x1d5 ./cmsis/system_LM4F.o
+ .debug_line    0x0000000000000639      0x218 ./hal/SPID.o
+ .debug_line    0x0000000000000851      0x11a ./hal/TIMD.o
+ .debug_line    0x000000000000096b      0x247 ./hal/uDMA.o
 
-.debug_str      0x0000000000000000     0x1238
- .debug_str     0x0000000000000000      0x1ed ./main.o
-                                        0x23c (size before relaxing)
- .debug_str     0x00000000000001ed       0xac ./tm4c123gh6pm_startup_ccs_gcc.o
+.debug_str      0x0000000000000000     0x1249
+ .debug_str     0x0000000000000000      0x2c8 ./main.o
+                                        0x325 (size before relaxing)
+ .debug_str     0x00000000000002c8       0xa1 ./tm4c123gh6pm_startup_ccs_gcc.o
                                         0x277 (size before relaxing)
- .debug_str     0x0000000000000299        0xf ./ERRH/ERRH.o
+ .debug_str     0x0000000000000369        0xf ./ERRH/ERRH.o
                                         0x1c8 (size before relaxing)
- .debug_str     0x00000000000002a8      0x3d8 ./cmsis/cmsis_nvic.o
+ .debug_str     0x0000000000000378      0x3ce ./cmsis/cmsis_nvic.o
                                         0x67e (size before relaxing)
- .debug_str     0x0000000000000680      0x627 ./cmsis/system_LM4F.o
+ .debug_str     0x0000000000000746      0x613 ./cmsis/system_LM4F.o
                                         0x826 (size before relaxing)
- .debug_str     0x0000000000000ca7      0x1db ./hal/SPID.o
+ .debug_str     0x0000000000000d59      0x1db ./hal/SPID.o
                                         0x9df (size before relaxing)
- .debug_str     0x0000000000000e82        0xe ./hal/TIMD.o
+ .debug_str     0x0000000000000f34        0xe ./hal/TIMD.o
                                         0x1ef (size before relaxing)
- .debug_str     0x0000000000000e90      0x3a8 ./hal/uDMA.o
-                                        0xbc6 (size before relaxing)
+ .debug_str     0x0000000000000f42      0x307 ./hal/uDMA.o
+                                        0xbd7 (size before relaxing)
 
-.debug_frame    0x0000000000000000      0x5d4
+.debug_frame    0x0000000000000000      0x5e8
  .debug_frame   0x0000000000000000       0x30 ./main.o
  .debug_frame   0x0000000000000030       0x7c ./tm4c123gh6pm_startup_ccs_gcc.o
  .debug_frame   0x00000000000000ac       0x60 ./cmsis/cmsis_nvic.o
  .debug_frame   0x000000000000010c       0x84 ./cmsis/system_LM4F.o
  .debug_frame   0x0000000000000190      0x13c ./hal/SPID.o
- .debug_frame   0x00000000000002cc      0x188 ./hal/uDMA.o
- .debug_frame   0x0000000000000454       0x28 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-exit.o)
- .debug_frame   0x000000000000047c       0x2c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
- .debug_frame   0x00000000000004a8       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
- .debug_frame   0x00000000000004dc       0x50 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x000000000000052c       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-atexit.o)
- .debug_frame   0x000000000000054c       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-fini.o)
- .debug_frame   0x0000000000000580       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
- .debug_frame   0x00000000000005b4       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libnosys.a(_exit.o)
+ .debug_frame   0x00000000000002cc      0x19c ./hal/uDMA.o
+ .debug_frame   0x0000000000000468       0x28 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000490       0x2c /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-init.o)
+ .debug_frame   0x00000000000004bc       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000000004f0       0x50 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000000540       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000000560       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-fini.o)
+ .debug_frame   0x0000000000000594       0x34 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libc.a(lib_a-__atexit.o)
+ .debug_frame   0x00000000000005c8       0x20 /Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/libnosys.a(_exit.o)

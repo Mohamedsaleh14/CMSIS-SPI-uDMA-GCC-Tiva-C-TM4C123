@@ -49,7 +49,15 @@ int main(void) {
 	SPID_Enable(SSI_2);
 	while(1)
 	{
-
+		for(i=1;i<2000;i++);
+		for(i=1;i<=UDMA_BUFFER_SIZE;i++)
+		{
+			buffer_tx[i-1] = i+2;
+		}
+		UDMA_SetSSI2TxData(buffer_tx);
+		UDMA_EnableAgain();
+		UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
+		SPID_Enable(SSI_2);
 	}
 	return 0;
 }
