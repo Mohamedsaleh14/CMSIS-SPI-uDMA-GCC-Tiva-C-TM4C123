@@ -41,3 +41,6 @@ return the status of current SPI peripheral
 Used specifically to exchange data with SSI2.
 Still under development
 
+
+#Note
+SPI is current working with UDMA 8 items of 16-bit buffer on Tx and Rx
