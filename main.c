@@ -37,20 +37,16 @@
 
 int main(void) {
 	uint16_t buffer_tx[UDMA_BUFFER_SIZE];
-	
+	uint16_t i =1;
+	for(i=1;i<=UDMA_BUFFER_SIZE;i++)
+	{
+		buffer_tx[i-1] = i;
+	}
+	UDMA_SetSSI2TxData(buffer_tx);
+
 	UDMA_Init();
 	SPID_Init(SSI_2);
 	SPID_Enable(SSI_2);
-	buffer_tx[0] = 2;
-	buffer_tx[1] = 10;
-	buffer_tx[2] = 5;
-	buffer_tx[3] = 12;
-	buffer_tx[4] = 18;
-	buffer_tx[5] = 14;
-	buffer_tx[6] = 6;
-	buffer_tx[7] = 8;
-	UDMA_SetSSI2TxData(buffer_tx);
-	UDMA_SetChSwRqt(13);
 	while(1)
 	{
 
