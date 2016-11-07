@@ -32,7 +32,10 @@ Incase UDMA not used, this API used to send data over Tx of the SPI. If transmis
 ###uint16_t SPID_SSInReceiveData(void)
 Incase UDMA not used, this API used to receive data from Rx of the SPI.
 
-###SPID_Status_T SPID_GetSSI2Status(void)
+###SPID_Status_T SPID_GetSSInStatus(void)
+return the status of current SPI peripheral
 
 ##UDMA
+Used specifically to exchange data with SSI2.
+Still under development
 
