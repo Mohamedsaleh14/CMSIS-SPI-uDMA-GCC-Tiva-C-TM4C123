@@ -24,8 +24,8 @@ $(GEN_CMDS__FLAG) \
 
 -include ../makefile.init
 
-RM := rm -rf
-RMDIR := rm -rf
+RM := 
+RMDIR := 
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -152,13 +152,13 @@ all: CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out secondary-outputs
 CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out: $(OBJS) $(LDS_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GNU Linker'
-	"/Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gcc" -mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DPART_TM4C123GH6PM -O0 -funsigned-char -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall -specs="nosys.specs" -Wl,-Map,"CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.map" -o"CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out" $(ORDERED_OBJS)
+	"" -mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DPART_TM4C123GH6PM -O0 -funsigned-char -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall -specs="nosys.specs" -Wl,-Map,"CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.map" -o"CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: GNU Objcopy Utility'
-	"/Applications/ti/ccsv6/tools/compiler/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-objcopy"  $(EXE_OUTPUTS__QUOTED) "CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.hex"
+	""  $(EXE_OUTPUTS__QUOTED) "CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build

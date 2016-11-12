@@ -32,7 +32,7 @@
 #ifndef HAL_UDMA_H_
 #define HAL_UDMA_H_
 
-#define UDMA_BUFFER_SIZE		8
+#define UDMA_BUFFER_SIZE		255
 
 typedef enum{
 	DMA_IDLE = 0,
@@ -66,6 +66,10 @@ extern void UDMA_SetChSwRqt(uint32_t channel_num);
 extern void UDMA_SetSSI2TxData(uint16_t* buffer);
 extern void UDMA_EnableAgain(void);
 extern void UDMA_UpdateSSI2RxData(void);
+extern void UDMA_RxTransferSize(uint8_t size);
+extern void UDMA_TxTransferSize(uint8_t size);
+extern uint8_t UDMA_GetTxTransferSize(void);
+extern uint8_t UDMA_GetRxTransferSize(void);
 extern uint32_t UDMA_GetWaitOnRqtStatus(void);
 extern UDMA_status_T UDMA_GetStatus(void);
 

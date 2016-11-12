@@ -46,6 +46,8 @@ static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word);
 static uint32_t udma_control_structure[256] __attribute__ ((aligned(1024)));
 static uint16_t udma_buffer_tx[UDMA_BUFFER_SIZE] ;
 static uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] ;
+static uint8_t tx_transfer_size = UDMA_BUFFER_SIZE;
+static uint8_t rx_transfer_size = UDMA_BUFFER_SIZE;
 
 static uint32_t control_word_ch12 = (1<<30)	//destination address increment (increment by 16 bit locations)
 									|(1<<28)		//destination data size (16 bit data size)
@@ -185,7 +187,35 @@ void UDMA_EnableAgain(void)
 	UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
 }
 
+/* size can be from 1 to 256 */
+void UDMA_RxTransferSize(uint8_t size)
+{
+	control_word_ch12 &= ~(0x3FF<<4);
+	control_word_ch12 |= ((size-1)<<4);
+	CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+(size-1)));
+	CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
+	tx_transfer_size = size;
+}
 
+/* size can be from 1 to 255 */
+void UDMA_TxTransferSize(uint8_t size)
+{
+	control_word_ch13 &= ~(0x3FF<<4);
+	control_word_ch13 |= ((size-1)<<4);
+	CfgDMAChSrcAdd(UDMA_CHANNEL_13, (uint32_t)(udma_buffer_tx+(size-1)));
+	CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
+	tx_transfer_size = size;
+}
+
+uint8_t UDMA_GetTxTransferSize(void)
+{
+	return tx_transfer_size;
+}
+
+uint8_t UDMA_GetRxTransferSize(void)
+{
+	return rx_transfer_size;
+}
 
 
 
