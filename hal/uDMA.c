@@ -97,32 +97,17 @@ static void SSI2DMAConfiguration(void)
 
 static void CfgDMAChSrcAdd(uint8_t channel, uint32_t end_address)
 {
-	uint32_t* ptr;
-	uint32_t temp = 0;
-	temp = (uint32_t)udma_control_structure;
-	temp +=  (uint32_t)(channel<<4);
-	ptr = (uint32_t*)temp; //point to channel source address container
-	*ptr = end_address;
+	udma_control_structure[channel*4] = end_address;
 }
 
 static void CfgDMAChDesAdd(uint8_t channel, uint32_t end_address)
 {
-	uint32_t* ptr;
-	uint32_t temp = 0;
-	temp = (uint32_t)udma_control_structure;
-	temp +=  (((uint32_t)(channel<<4)) + ((uint32_t)0x04));
-	ptr = (uint32_t*)temp; //point to channel destination address container
-	*ptr = end_address;
+	udma_control_structure[(channel*4)+1] = end_address;
 }
 
 static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word)
 {
-	uint32_t* ptr;
-	uint32_t temp = 0;
-	temp = (uint32_t)udma_control_structure;
-	temp +=  (((uint32_t)(channel<<4)) + ((uint32_t)0x08));
-	ptr = (uint32_t*)temp; //point to channel destination address container
-	*ptr = control_word;
+	udma_control_structure[(channel*4)+2] = control_word;
 }
 
 void UDMA_Init(void)
