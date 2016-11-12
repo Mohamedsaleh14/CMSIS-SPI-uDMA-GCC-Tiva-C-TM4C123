@@ -34,7 +34,7 @@
 
 extern void TIMD_SchInit(void);
 extern void TIMD_SchAppl(void);
-
+extern void TIMD_WaitTimerA(uint32_t microsec);
 
 
 #endif /* HAL_TIMD_H_ */

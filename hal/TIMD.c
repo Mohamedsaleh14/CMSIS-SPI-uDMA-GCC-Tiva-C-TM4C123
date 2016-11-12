@@ -40,7 +40,15 @@
 #include "SPID.h"
 #include "../ERRH/ERRH.h"
 
-#define ONE_MS_TICKER_NUM	(80000)		//Configure SysTick to interrupt every 1ms
+#define ONE_MS_TICKER_NUM				(80000)		//Configure SysTick to interrupt every 1ms
+#define EN_CLK_TIMER0					(1<<0)
+#define TIMERA_PERIODIC_MODE				(1<<1)
+#define TIMERA_ONE_SHOT					(1<<0)
+#define TIMERA_COUNT_UP					(1<<4)
+#define TIMERA_TIMEOUT_INTERRUPT			(1<<0)
+#define TIMERA_ENABLE_BIT				(1<<0)
+#define TIMERA_STALL_BIT					(1<<1)
+#define TIMERA_CLEAR_INT					(1<<0)
 
 typedef struct{
 	uint8_t task_trigger_5ms :1;
@@ -48,15 +56,25 @@ typedef struct{
 	uint8_t RESERVED :6;
 }Task_Trigger_T;
 
+/*************************************************************************/
+/*				      local variable declaration						   */
+/*************************************************************************/
 static uint8_t systick_interrupt_counter = 0;
 static Task_Trigger_T triggered_tasks;
 
+/*************************************************************************/
+/*				      local Functions declaration					   */
+/*************************************************************************/
 static void Systick_InterruptHandler(void);
 static void Task_Initialization(void);
 static void Task_5ms(void);
 static void Task_10ms(void);
+static void InitTimerA(void);
 
 
+/*************************************************************************/
+/*						  local Functions							   */
+/*************************************************************************/
 static void Systick_InterruptHandler(void)
 {
 	uint8_t temp = 0;
@@ -93,6 +111,7 @@ static void Systick_InterruptHandler(void)
 
 			}
 		}
+		systick_interrupt_counter = 0;
 	}
 }
 
@@ -122,11 +141,26 @@ static void Task_Initialization(void)
 {
 	UDMA_Init();
 	SPID_Init(SSI_2);
+	InitTimerA();
 }
 
+static void InitTimerA(void)
+{
+	SYSCTL->RCGCTIMER = EN_CLK_TIMER0;
+	TIMER0->CTL		= 0x00;
+	TIMER0->CFG		= 0x00;
+	TIMER0->TAMR 	= TIMERA_ONE_SHOT|TIMERA_COUNT_UP;
+	TIMER0->CTL		= TIMERA_STALL_BIT;
+}
+
+/*************************************************************************/
+/*						  Exported Functions							   */
+/*************************************************************************/
 void TIMD_SchInit(void)
 {
 	uint32_t status = 1;
+
+	Task_Initialization();
 	NVIC_SetVector(SysTick_IRQn, (uint32_t)Systick_InterruptHandler);
 	status = SysTick_Config(ONE_MS_TICKER_NUM);
 	if(status != 0)
@@ -137,7 +171,6 @@ void TIMD_SchInit(void)
 
 		}
 	}
-	Task_Initialization();
 }
 
 void TIMD_SchAppl(void)
@@ -155,6 +188,15 @@ void TIMD_SchAppl(void)
 	}
 }
 
+void TIMD_WaitTimerA(uint32_t microsec)
+{
+	TIMER0->TAILR 	  = 80*microsec;
+	TIMER0->CTL		|=(0x01);
+	while(((TIMER0->CTL)&0x01) == 0x01)
+	{
+		//wait
+	}
+}
 
 
 

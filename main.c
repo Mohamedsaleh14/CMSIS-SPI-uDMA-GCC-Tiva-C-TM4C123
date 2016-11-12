@@ -29,7 +29,7 @@
  * Version:		1.0.0.
  * Description:	uDMA driver.
  */
-
+#include <stdint.h>
 #include "hal/TIMD.h"
 
 
