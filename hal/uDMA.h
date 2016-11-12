@@ -32,7 +32,7 @@
 #ifndef HAL_UDMA_H_
 #define HAL_UDMA_H_
 
-#define UDMA_BUFFER_SIZE		255
+#define UDMA_BUFFER_SIZE		8
 
 typedef enum{
 	DMA_IDLE = 0,

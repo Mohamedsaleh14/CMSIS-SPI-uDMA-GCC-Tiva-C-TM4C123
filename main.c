@@ -30,34 +30,15 @@
  * Description:	uDMA driver.
  */
 
-#include "cmsis/LM4F120H5QR.h"
-#include "hal/uDMA.h"
-#include "hal/SPID.h"
-#include "ERRH/ERRH.h"
+#include "hal/TIMD.h"
+
 
 int main(void) {
-	uint16_t buffer_tx[UDMA_BUFFER_SIZE];
-	uint16_t i =1;
-	for(i=1;i<=UDMA_BUFFER_SIZE;i++)
-	{
-		buffer_tx[i-1] = i;
-	}
-	UDMA_SetSSI2TxData(buffer_tx);
 
-	UDMA_Init();
-	SPID_Init(SSI_2);
-	SPID_Enable(SSI_2);
+	TIMD_SchInit();
 	while(1)
 	{
-		for(i=1;i<2000;i++);
-		for(i=1;i<=UDMA_BUFFER_SIZE;i++)
-		{
-			buffer_tx[i-1] = i+2;
-		}
-		UDMA_SetSSI2TxData(buffer_tx);
-		UDMA_EnableAgain();
-		UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
-		SPID_Enable(SSI_2);
+		TIMD_SchAppl();
 	}
 	return 0;
 }

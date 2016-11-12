@@ -211,8 +211,8 @@ static void SSI3Init(void)
 
 void SPID_Init(SPID_SpiPort_T ssix)
 {
-	static uint8_t first_entry = TRUE;
-	if(first_entry == TRUE)
+	static uint8_t first_entry = TRUE_BOOL;
+	if(first_entry == TRUE_BOOL)
 	{
 		enabled_spi.ssi0_isenabled = 0;
 		enabled_spi.ssi1_isenabled = 0;
@@ -246,7 +246,7 @@ void SPID_Init(SPID_SpiPort_T ssix)
 		ssi3_status.transmit_fifo_not_full = 1;
 		ssi3_status.transmit_fifo_empty = 1;
 #endif
-		first_entry = FALSE;
+		first_entry = FALSE_BOOL;
 	}
 	SYSCTL->RCGCSSI |= (1<<(uint8_t)ssix);		//Enable clock for SPI peripheral
 

@@ -47,6 +47,7 @@ void NVIC_SetVector(IRQn_Type IRQn, uint32_t vector) {
         SCB->VTOR = (uint32_t)NVIC_RAM_VECTOR_ADDRESS;
     }
     vectors[IRQn + 16] = vector;
+
 }
 
 uint32_t NVIC_GetVector(IRQn_Type IRQn) {

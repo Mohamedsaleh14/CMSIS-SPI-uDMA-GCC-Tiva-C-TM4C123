@@ -32,7 +32,8 @@
 #ifndef HAL_TIMD_H_
 #define HAL_TIMD_H_
 
-
+extern void TIMD_SchInit(void);
+extern void TIMD_SchAppl(void);
 
 
 

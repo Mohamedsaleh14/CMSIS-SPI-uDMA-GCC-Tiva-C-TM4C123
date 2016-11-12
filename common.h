@@ -33,8 +33,8 @@
 #ifndef DEBUG_COMMON_H_
 #define DEBUG_COMMON_H_
 
-#define TRUE		(0==0)
-#define FALSE	(0!=0)
+#define TRUE_BOOL	(0==0)
+#define FALSE_BOOL	(0!=0)
 
 #define	SW_OK	1
 #define SW_NOK	0

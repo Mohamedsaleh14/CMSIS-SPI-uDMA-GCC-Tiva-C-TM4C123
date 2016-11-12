@@ -49,28 +49,14 @@ static uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] ;
 static uint8_t tx_transfer_size = UDMA_BUFFER_SIZE;
 static uint8_t rx_transfer_size = UDMA_BUFFER_SIZE;
 
-static uint32_t control_word_ch12 = (1<<30)	//destination address increment (increment by 16 bit locations)
-									|(1<<28)		//destination data size (16 bit data size)
-									|(3<<26)		//source address increment (No increment)
-									|(1<<24)		//source data size (16 bit data size)
-									|(3<<14)		//Arbitration size ( 8 transfers)
-									|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
-									|(0<<3)		//next useburst
-									|(1<<0);		//Basic mode
+static uint32_t control_word_ch12 =  0;
 
-static uint32_t control_word_ch13 =	(3<<30)	//destination address increment (No increment)
-									|(1<<28)		//destination data size (16 bit data size)
-									|(1<<26)		//source address increment (No increment)
-									|(1<<24)		//source data size (16 bit data size)
-									|(3<<14)		//Arbitration size ( 8 transfers)
-									|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
-									|(0<<3)		//next useburst
-									|(1<<0);		//Basic mode
+static uint32_t control_word_ch13 =	0;
 
 static void SSI2DMAConfiguration(void)
 {
 	if((((uint32_t)udma_control_structure & ~(0x3FF)) == (uint32_t)udma_control_structure)
-			&& ((uint32_t)udma_control_structure >= 0x20000000))
+			&& ((uint32_t)udma_control_structure >= 0x20000268))
 	{
 		SYSCTL->RCGCDMA = (0x01); 	//Enable clock for DMA
 		UDMA->CFG = (uint32_t)(0x01);			//Enable uDMA controller
@@ -114,6 +100,22 @@ static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word)
 
 void UDMA_Init(void)
 {
+	control_word_ch12 = (1<<30)	//destination address increment (increment by 16 bit locations)
+										|(1<<28)		//destination data size (16 bit data size)
+										|(3<<26)		//source address increment (No increment)
+										|(1<<24)		//source data size (16 bit data size)
+										|(3<<14)		//Arbitration size ( 8 transfers)
+										|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
+										|(0<<3)		//next useburst
+										|(1<<0);		//Basic mode
+	control_word_ch13 =	(3<<30)	//destination address increment (No increment)
+										|(1<<28)		//destination data size (16 bit data size)
+										|(1<<26)		//source address increment (No increment)
+										|(1<<24)		//source data size (16 bit data size)
+										|(3<<14)		//Arbitration size ( 8 transfers)
+										|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
+										|(0<<3)		//next useburst
+										|(1<<0);		//Basic mode
 	SSI2DMAConfiguration();
 }
 
