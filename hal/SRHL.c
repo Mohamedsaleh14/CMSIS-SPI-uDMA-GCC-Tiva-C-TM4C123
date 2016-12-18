@@ -121,7 +121,7 @@ int SRHL_IfWrite(Fd_t Fd , char* pBuff , int Len)
 	char* local_buf;
 	local_buf = pBuff;
 	len_to_return = Len;
-	ChipSelect();
+	//ChipSelect();
 	while(Len>0)
 	{
 		if(Len<=4)
@@ -156,7 +156,7 @@ int SRHL_IfWrite(Fd_t Fd , char* pBuff , int Len)
 			Len-=dumy_len;
 		}
 	}
-	ChipDeselect();
+	//ChipDeselect();
 	return 0;
 }
 

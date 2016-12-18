@@ -75,7 +75,7 @@
 #define SSI2_FRF					0		//Frame Format Select
 #define SSI2_DSS					0x07		//Data Size Select
 #define SSI2_ENABLE				1		// 1:Enable peripheral 0:Disable Peripheral
-#define SSI2_TEST_MODE			1		// 1:Test mode enabled   0:Test mode disabled
+#define SSI2_TEST_MODE			0		// 1:Test mode enabled   0:Test mode disabled
 #define SSI2_ENABLE_DMA_RX		1		// 1: Enable DMA Rx 0:Disable DMA Rx
 #define SSI2_ENABLE_DMA_TX		1		// 1: Enable DMA Tx 0:Disable DMA Tx
 #define SSI2_EOT					0		// 1:End of transmit interrupt interrupt mode enabled 0:Indicate FIFO is half full of less

@@ -125,7 +125,7 @@ static void Task_5ms(void)
 	{
 		buffer_tx[i-1] = i;
 	}
-	SRHL_IfWrite(0, (char*)buffer_tx , 5);
+	SRHL_IfWrite(0, (char*)buffer_tx , 4);
 	TIMD_WaitTimerA(1000);
 //	SRHL_IfRead(0 , buffer_rx , 8);
 }
