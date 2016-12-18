@@ -153,7 +153,7 @@ static void SSI1Init(void)
 static void SSI2Init(void)
 {
 	SYSCTL->RCGCGPIO |= 0x02; //Enable clock  portB
-	GPIOB->AFSEL |= ((1<<4)|(1<<6)|(1<<7));			//Pins, 4,5,6,7
+	GPIOB->AFSEL |= ((1<<4)|(1<<5)|(1<<6)|(1<<7));			//Pins, 4,5,6,7
 	GPIOB->PCTL |= ((2<<16)|(2<<20)|(2<<24)|(2<<28));
 	GPIOB->DIR |= (1<<5);
 	GPIOB->DATA |= (1<<5);

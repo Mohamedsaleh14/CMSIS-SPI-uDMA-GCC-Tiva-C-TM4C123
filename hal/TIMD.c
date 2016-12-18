@@ -120,12 +120,11 @@ static void Systick_InterruptHandler(void)
 
 static void Task_5ms(void)
 {
-	uint8_t i =1;
-	for(i=1;i<9;i++)
-	{
-		buffer_tx[i-1] = i;
-	}
-	SRHL_IfWrite(0, (char*)buffer_tx , 5);
+	buffer_tx[0] = 0xAA;
+	buffer_tx[1] = 0x55;
+	buffer_tx[2] = 0xAA;
+	buffer_tx[3] = 0x55;
+	SRHL_IfWrite(0, (char*)buffer_tx , 4);
 	TIMD_WaitTimerA(1000);
 //	SRHL_IfRead(0 , buffer_rx , 8);
 }
