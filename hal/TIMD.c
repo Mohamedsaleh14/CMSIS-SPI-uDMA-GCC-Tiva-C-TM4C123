@@ -38,6 +38,7 @@
 #include "../cmsis/cmsis_nvic.h"
 #include "uDMA.h"
 #include "SPID.h"
+#include "SRHL.h"
 #include "../ERRH/ERRH.h"
 
 #define ONE_MS_TICKER_NUM				(80000)		//Configure SysTick to interrupt every 1ms
@@ -61,6 +62,8 @@ typedef struct{
 /*************************************************************************/
 static uint8_t systick_interrupt_counter = 0;
 static Task_Trigger_T triggered_tasks;
+uint8_t buffer_tx[8];
+uint8_t buffer_rx[8];
 
 /*************************************************************************/
 /*				      local Functions declaration					   */
@@ -117,19 +120,14 @@ static void Systick_InterruptHandler(void)
 
 static void Task_5ms(void)
 {
-	uint16_t buffer_tx[UDMA_BUFFER_SIZE];
-	uint16_t i =1;
-	for(i=1;i<=UDMA_BUFFER_SIZE;i++)
+	uint8_t i =1;
+	for(i=1;i<9;i++)
 	{
 		buffer_tx[i-1] = i;
 	}
-	UDMA_SetSSI2TxData(buffer_tx);
-
-//	for(i=1;i<2000;i++);
-
-	UDMA_EnableAgain();
-	UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
-	SPID_Enable(SSI_2);
+	SRHL_IfWrite(0, (char*)buffer_tx , 5);
+	TIMD_WaitTimerA(1000);
+//	SRHL_IfRead(0 , buffer_rx , 8);
 }
 
 static void Task_10ms(void)
@@ -141,6 +139,7 @@ static void Task_Initialization(void)
 {
 	UDMA_Init();
 	SPID_Init(SSI_2);
+	SPID_Enable(SSI_2);
 	InitTimerA();
 }
 

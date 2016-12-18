@@ -24,55 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * File:			uDMAC.h
+ * File:			SRHL.c
  * Author:		Mohamed Saleh (mohamedsaleh.elec@gmail.com).
  * Version:		1.0.0.
- * Description:	uDMA driver.
+ * Description:	Sender/Receiver Handler.
  */
-#ifndef HAL_UDMA_H_
-#define HAL_UDMA_H_
+#ifndef HAL_SRHL_H_
+#define HAL_SRHL_H_
 
-#define UDMA_BUFFER_SIZE		4
+typedef short* Fd_t;
 
-typedef enum{
-	DMA_IDLE = 0,
-	DMA_READING_CHANNEL_DATA = 1,
-	DMA_READING_SOURCE_END_POINTER = 2,
-	DMA_READING_DESTINATION_END_POINTER = 3,
-	DMA_READING_SOURCE_DATA = 4,
-	DMA_WRITING_DESTINATION_DATA = 5,
-	DMA_WAITING_REQUEST_CLEAR = 6,
-	DMA_WRITING_CHANNEL_DATA = 7,
-	DMA_STALLED = 8,
-	DMA_DONE = 9,
-	DMA_UNDEFINED_0 = 0xA,
-	DMA_UNDEFINED_1 = 0xB,
-	DMA_UNDEFINED_2 = 0xC,
-	DMA_UNDEFINED_3 = 0xD,
-	DMA_UNDEFINED_4 = 0xE,
-	DMA_UNDEFINED_5 =0xF
-}UDMA_state_T;
-
-typedef struct{
-	uint8_t num_configured_channels;
-	UDMA_state_T state_machine_status;
-	uint8_t master_enable_status;
-}UDMA_status_T;
-
-uint8_t UDMA_ssi2_app_rx_data[UDMA_BUFFER_SIZE];
-
-extern void UDMA_Init(void);
-extern void UDMA_SetChSwRqt(uint32_t channel_num);
-extern void UDMA_SetSSI2TxData(uint8_t* buffer, uint8_t len);
-extern void UDMA_SSI2Enable(void);
-extern void UDMA_UpdateSSI2RxData(uint8_t len);
-extern void UDMA_RxTransferSize(uint8_t size);
-extern void UDMA_TxTransferSize(uint8_t size);
-extern uint8_t UDMA_GetTxTransferSize(void);
-extern uint8_t UDMA_GetRxTransferSize(void);
-extern uint32_t UDMA_GetWaitOnRqtStatus(void);
-extern UDMA_status_T UDMA_GetStatus(void);
+extern Fd_t SRHL_IfOpen(char* pIfName , unsigned long flags);
+extern int SRHL_IfClose(Fd_t Fd);
+extern int SRHL_IfRead(Fd_t Fd , char* pBuff , int Len);
+extern int SRHL_IfWrite(Fd_t Fd , char* pBuff , int Len);
 
 
-
-#endif /* HAL_UDMA_H_ */
+#endif /* HAL_SRHL_H_ */

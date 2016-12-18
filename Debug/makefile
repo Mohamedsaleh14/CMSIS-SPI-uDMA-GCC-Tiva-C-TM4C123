@@ -14,6 +14,7 @@ ORDERED_OBJS += \
 "./cmsis/cmsis_nvic.o" \
 "./cmsis/system_LM4F.o" \
 "./hal/SPID.o" \
+"./hal/SRHL.o" \
 "./hal/TIMD.o" \
 "./hal/uDMA.o" \
 -Wl,-T"../tm4c123gh6pm.lds" \
@@ -166,8 +167,8 @@ CMSIS-SPI-uDMA-GCC-Tiva-C-TM4C123.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" "ERRH/ERRH.o" "cmsis/cmsis_nvic.o" "cmsis/system_LM4F.o" "hal/SPID.o" "hal/TIMD.o" "hal/uDMA.o" 
-	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" "ERRH/ERRH.d" "cmsis/cmsis_nvic.d" "cmsis/system_LM4F.d" "hal/SPID.d" "hal/TIMD.d" "hal/uDMA.d" 
+	-$(RM) "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" "ERRH/ERRH.o" "cmsis/cmsis_nvic.o" "cmsis/system_LM4F.o" "hal/SPID.o" "hal/SRHL.o" "hal/TIMD.o" "hal/uDMA.o" 
+	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" "ERRH/ERRH.d" "cmsis/cmsis_nvic.d" "cmsis/system_LM4F.d" "hal/SPID.d" "hal/SRHL.d" "hal/TIMD.d" "hal/uDMA.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -41,11 +41,11 @@
 /*************************************************************************/
 /*				      local variable declaration						   */
 /*************************************************************************/
-static uint32_t udma_control_structure[256] __attribute__ ((aligned(1024)));
-static uint16_t udma_buffer_tx[UDMA_BUFFER_SIZE] ;
-static uint16_t udma_buffer_rx[UDMA_BUFFER_SIZE] ;
-static uint8_t tx_transfer_size = UDMA_BUFFER_SIZE;
-static uint8_t rx_transfer_size = UDMA_BUFFER_SIZE;
+ uint32_t udma_control_structure[256] __attribute__ ((aligned(1024)));
+ uint8_t udma_buffer_tx[UDMA_BUFFER_SIZE] ;
+ uint8_t udma_buffer_rx[UDMA_BUFFER_SIZE] ;
+ uint8_t tx_transfer_size = UDMA_BUFFER_SIZE;
+ uint8_t rx_transfer_size = UDMA_BUFFER_SIZE;
 static uint32_t control_word_ch12 =  0;
 static uint32_t control_word_ch13 =	0;
 
@@ -80,8 +80,6 @@ static void SSI2DMAConfiguration(void)
 		CfgDMAChSrcAdd(UDMA_CHANNEL_13, (uint32_t)(udma_buffer_tx+(UDMA_BUFFER_SIZE-1)));
 		CfgDMAChDesAdd(UDMA_CHANNEL_13, (uint32_t)&(SSI2->DR));
 		CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
-
-		UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
 	}
 	else
 	{
@@ -111,19 +109,19 @@ static void CfgDMAChContrWrd(uint8_t channel, uint32_t control_word)
 /*************************************************************************/
 void UDMA_Init(void)
 {
-	control_word_ch12 = (1<<30)	//destination address increment (increment by 16 bit locations)
-										|(1<<28)		//destination data size (16 bit data size)
-										|(3<<26)		//source address increment (No increment)
-										|(1<<24)		//source data size (16 bit data size)
-										|(3<<14)		//Arbitration size ( 8 transfers)
+	control_word_ch12 = (0<<30)	//destination address increment
+										|(0<<28)		//destination data size
+										|(3<<26)		//source address increment
+										|(0<<24)		//source data size
+										|(2<<14)		//Arbitration size
 										|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
 										|(0<<3)		//next useburst
 										|(1<<0);		//Basic mode
-	control_word_ch13 =	(3<<30)	//destination address increment (No increment)
-										|(1<<28)		//destination data size (16 bit data size)
-										|(1<<26)		//source address increment (No increment)
-										|(1<<24)		//source data size (16 bit data size)
-										|(3<<14)		//Arbitration size ( 8 transfers)
+	control_word_ch13 =	(3<<30)	//destination address increment
+										|(0<<28)		//destination data size
+										|(0<<26)		//source address increment
+										|(0<<24)		//source data size
+										|(2<<14)		//Arbitration size
 										|((UDMA_BUFFER_SIZE-1)<<4)		//Transfer size (minus 1)
 										|(0<<3)		//next useburst
 										|(1<<0);		//Basic mode
@@ -169,34 +167,31 @@ uint32_t UDMA_GetWaitOnRqtStatus(void)
 	return (UDMA->WAITSTAT);
 }
 
-void UDMA_SetSSI2TxData(uint16_t* buffer)
+void UDMA_SetSSI2TxData(uint8_t* buffer, uint8_t len)
 {
 	uint32_t iterator = 0;
-	//Critical section enable TODO
-	for(iterator=0;iterator<UDMA_BUFFER_SIZE;iterator++)
+	for(iterator=0;iterator<len;iterator++)
 	{
-		udma_buffer_tx[iterator] = *buffer;
+		udma_buffer_tx[tx_transfer_size-len+iterator] = *buffer;
 		buffer++;
 	}
-	//Critical section disable TODO
 }
 
 
-void UDMA_UpdateSSI2RxData(void)
+void UDMA_UpdateSSI2RxData(uint8_t len)
 {
 	uint32_t iterator = 0;
-	//Critical section enable TODO
-	for(iterator=0;iterator<UDMA_BUFFER_SIZE;iterator++)
+	uint32_t receive_iterator = 0;
+	while(((UDMA->ENASET)&(1<<12)) == (1<<12));
+	for(iterator=(tx_transfer_size-len);iterator<len;iterator++)
 	{
-		UDMA_ssi2_app_rx_data[iterator] = udma_buffer_rx[UDMA_BUFFER_SIZE];
+		UDMA_ssi2_app_rx_data[receive_iterator] = udma_buffer_rx[iterator];
+		receive_iterator++;
 	}
-	//Critical section disable TODO
 }
 
-void UDMA_EnableAgain(void)
+void UDMA_SSI2Enable(void)
 {
-	CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
-	CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 	UDMA->ENASET = (uint32_t)((1<<12)|(1<<13)); //Enable
 }
 
@@ -205,7 +200,7 @@ void UDMA_RxTransferSize(uint8_t size)
 {
 	control_word_ch12 &= ~(0x3FF<<4);
 	control_word_ch12 |= ((size-1)<<4);
-	CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+(size-1)));
+	CfgDMAChDesAdd(UDMA_CHANNEL_12, (uint32_t)(udma_buffer_rx+(UDMA_BUFFER_SIZE-1)));
 	CfgDMAChContrWrd(UDMA_CHANNEL_12, control_word_ch12);
 	tx_transfer_size = size;
 }
@@ -215,7 +210,7 @@ void UDMA_TxTransferSize(uint8_t size)
 {
 	control_word_ch13 &= ~(0x3FF<<4);
 	control_word_ch13 |= ((size-1)<<4);
-	CfgDMAChSrcAdd(UDMA_CHANNEL_13, (uint32_t)(udma_buffer_tx+(size-1)));
+	CfgDMAChSrcAdd(UDMA_CHANNEL_13, (uint32_t)(udma_buffer_tx+(UDMA_BUFFER_SIZE-1)));
 	CfgDMAChContrWrd(UDMA_CHANNEL_13, control_word_ch13);
 	tx_transfer_size = size;
 }
